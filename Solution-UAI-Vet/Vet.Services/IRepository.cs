@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClientPatientManagement.Core.Model
+namespace Vet.Services
 {
     public interface IRepository<TEntity> where TEntity : IEntity
     {

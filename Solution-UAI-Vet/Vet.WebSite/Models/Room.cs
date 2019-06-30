@@ -1,10 +1,9 @@
-﻿using ClientPatientManagement.Core.Data;
-using ClientPatientManagement.Core.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Vet.Services;
 
 namespace ClientPatientManagement.Core.Model
 {
@@ -31,35 +30,35 @@ namespace ClientPatientManagement.Core.Model
         }
     }
 
-    public class RoomModel
-    {
-        public IEnumerable<Room> TraerSalas()
-        {
-            return RoomRepository.Instancia.List();
-        }
+    //public class RoomModel
+    //{
+    //    public IEnumerable<Room> TraerSalas()
+    //    {
+    //        return RoomRepository.Instancia.List();
+    //    }
 
-        public void AgregarRoom(string name, string location)
-        {
-            RoomRepository.Instancia.Insert(new Room()
-            {
-                Name = name,
-                Location = location
-            });
-        }
+    //    public void AgregarRoom(string name, string location)
+    //    {
+    //        RoomRepository.Instancia.Insert(new Room()
+    //        {
+    //            Name = name,
+    //            Location = location
+    //        });
+    //    }
 
-        public Room ObtenerRoomById(int id)
-        {
-            return RoomRepository.Instancia.GetById(id);
-        }
+    //    public Room ObtenerRoomById(int id)
+    //    {
+    //        return RoomRepository.Instancia.GetById(id);
+    //    }
 
-        public void ActualizarRoom(Room room)
-        {
-            RoomRepository.Instancia.Update(room);
-        }
+    //    public void ActualizarRoom(Room room)
+    //    {
+    //        RoomRepository.Instancia.Update(room);
+    //    }
 
-        public void EliminarRoom(int id)
-        {
-            RoomRepository.Instancia.Delete(id);
-        }
-    }
+    //    public void EliminarRoom(int id)
+    //    {
+    //        RoomRepository.Instancia.Delete(id);
+    //    }
+    //}
 }

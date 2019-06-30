@@ -1,9 +1,9 @@
-﻿using ClientPatientManagement.Core.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Vet.Services;
 
 namespace ClientPatientManagement.Core.Model
 {
@@ -43,31 +43,31 @@ namespace ClientPatientManagement.Core.Model
         }
     }
 
-    public class DoctorModel
-    {
-        public IEnumerable<Doctor> ObtenerDoctores()
-        {
-            return DoctorRepository.Instancia.List();
-        }
+    //public class DoctorModel
+    //{
+    //    public IEnumerable<Doctor> ObtenerDoctores()
+    //    {
+    //        return DoctorRepository.Instancia.List();
+    //    }
 
-        public void AgregarDoctor(Doctor doctor)
-        {
-            DoctorRepository.Instancia.Insert(doctor);
-        }
+    //    public void AgregarDoctor(Doctor doctor)
+    //    {
+    //        DoctorRepository.Instancia.Insert(doctor);
+    //    }
 
-        public Doctor ObtenerDoctorById(int id)
-        {
-            return DoctorRepository.Instancia.GetById(id);
-        }
+    //    public Doctor ObtenerDoctorById(int id)
+    //    {
+    //        return DoctorRepository.Instancia.GetById(id);
+    //    }
 
-        public void ActualizarDoctor(Doctor doctor)
-        {
-            DoctorRepository.Instancia.Update(doctor);
-        }
+    //    public void ActualizarDoctor(Doctor doctor)
+    //    {
+    //        DoctorRepository.Instancia.Update(doctor);
+    //    }
 
-        public void EliminarDoctor(int id)
-        {
-            DoctorRepository.Instancia.Delete(id);
-        }
-    }
+    //    public void EliminarDoctor(int id)
+    //    {
+    //        DoctorRepository.Instancia.Delete(id);
+    //    }
+    //}
 }

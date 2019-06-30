@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebApp.Data;
+using Vet.Services;
 
 namespace ClientPatientManagement.Core.Model
 {
@@ -35,32 +35,32 @@ namespace ClientPatientManagement.Core.Model
         }
     }
 
-    public class PatientModel
-    {
-        public IEnumerable<Patient> ObtenerPacientes()
-        {
-            return PatientRepository.Instancia.List();
-        }
+    //public class PatientModel
+    //{
+    //    public IEnumerable<Patient> ObtenerPacientes()
+    //    {
+    //        return PatientRepository.Instancia.List();
+    //    }
 
-        public void AgregarPaciente(Patient paciente)
-        {
-            PatientRepository.Instancia.Insert(paciente);
-        }
+    //    public void AgregarPaciente(Patient paciente)
+    //    {
+    //        PatientRepository.Instancia.Insert(paciente);
+    //    }
 
-        public Patient ObtenerPacienteById(int id)
-        {
-            return PatientRepository.Instancia.GetById(id);
-        }
+    //    public Patient ObtenerPacienteById(int id)
+    //    {
+    //        return PatientRepository.Instancia.GetById(id);
+    //    }
 
-        public void ActualizarPaciente(Patient paciente)
-        {
-            PatientRepository.Instancia.Update(paciente);
-        }
+    //    public void ActualizarPaciente(Patient paciente)
+    //    {
+    //        PatientRepository.Instancia.Update(paciente);
+    //    }
 
-        public void EliminarPaciente(int id)
-        {
-            PatientRepository.Instancia.Delete(id);
-        }
+    //    public void EliminarPaciente(int id)
+    //    {
+    //        PatientRepository.Instancia.Delete(id);
+    //    }
 
-    }
+    //}
 }

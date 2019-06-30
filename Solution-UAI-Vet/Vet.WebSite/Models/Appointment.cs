@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using WebApp.Data;
+using Vet.Services;
 
 namespace ClientPatientManagement.Core.Model
 {
@@ -38,32 +38,32 @@ namespace ClientPatientManagement.Core.Model
         }
     }
 
-    public class AppointmentModel
-    {
-        public IEnumerable<Appointment> ObtenerCitas()
-        {
-            return AppointmentRepository.Instancia.List();
-        }
+    //public class AppointmentModel
+    //{
+    //    public IEnumerable<Appointment> ObtenerCitas()
+    //    {
+    //        return AppointmentRepository.Instancia.List();
+    //    }
 
-        public void AgregarCita(Appointment cita)
-        {
-            AppointmentRepository.Instancia.Insert(cita);
-        }
+    //    public void AgregarCita(Appointment cita)
+    //    {
+    //        AppointmentRepository.Instancia.Insert(cita);
+    //    }
 
-        public Appointment ObtenerCitaById(int id)
-        {
-            return AppointmentRepository.Instancia.GetById(id);
-        }
+    //    public Appointment ObtenerCitaById(int id)
+    //    {
+    //        return AppointmentRepository.Instancia.GetById(id);
+    //    }
 
-        public void ActualizarCita(Appointment cita)
-        {
-            AppointmentRepository.Instancia.Update(cita);
-        }
+    //    public void ActualizarCita(Appointment cita)
+    //    {
+    //        AppointmentRepository.Instancia.Update(cita);
+    //    }
 
-        public void EliminarCita(int id)
-        {
-            AppointmentRepository.Instancia.Delete(id);
-        }
+    //    public void EliminarCita(int id)
+    //    {
+    //        AppointmentRepository.Instancia.Delete(id);
+    //    }
 
-    }
+    //}
 }
