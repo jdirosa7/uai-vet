@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Vet.Domain;
 using Vet.Services;
 
 namespace ClientPatientManagement.Core.Model
@@ -12,6 +13,17 @@ namespace ClientPatientManagement.Core.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
+
+
+        public static Room ToModel(RoomModel entity)
+        {
+            return null;
+        }
+
+        public static RoomModel FromModel(Room model)
+        {
+            return null;
+        }
     }
 
     [MetadataType(typeof(RoomMetadata))]

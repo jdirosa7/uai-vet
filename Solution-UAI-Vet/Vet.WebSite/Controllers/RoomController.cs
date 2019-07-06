@@ -6,34 +6,34 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ClientPatientManagement.Core.Data;
 using ClientPatientManagement.Core.Model;
+using Vet.Business;
+using Vet.Domain;
 
 namespace WebApp.Controllers
 {
     public class RoomController : Controller
     {
-        private VetDbContext db = new VetDbContext();
+        private RoomBLL roomBusiness = new RoomBLL();
 
         // GET: Room
         public ActionResult Index()
         {
-            return View(db.Rooms.ToList());
+            var rooms = roomBusiness.List();
+            return View(rooms);
         }
 
         // GET: Room/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Room room = db.Rooms.Find(id);
+        public ActionResult Details(int id)
+        {            
+            RoomModel room = roomBusiness.GetById(id);
             if (room == null)
             {
                 return HttpNotFound();
             }
-            return View(room);
+
+            //Mapear RoomModel a Room
+            return View(Room.ToModel(room));
         }
 
         // GET: Room/Create
@@ -51,8 +51,7 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Rooms.Add(room);
-                db.SaveChanges();
+                roomBusiness.Insert(Room.FromModel(room));                
                 return RedirectToAction("Index");
             }
 
@@ -60,18 +59,15 @@ namespace WebApp.Controllers
         }
 
         // GET: Room/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Room room = db.Rooms.Find(id);
+        public ActionResult Edit(int id)
+        {            
+            RoomModel room = roomBusiness.GetById(id);
             if (room == null)
             {
                 return HttpNotFound();
             }
-            return View(room);
+
+            return View(Room.ToModel(room));
         }
 
         // POST: Room/Edit/5
@@ -83,26 +79,22 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(room).State = EntityState.Modified;
-                db.SaveChanges();
+                roomBusiness.Update(Room.FromModel(room));
                 return RedirectToAction("Index");
             }
             return View(room);
         }
 
         // GET: Room/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Room room = db.Rooms.Find(id);
+            RoomModel room = roomBusiness.GetById(id);
             if (room == null)
             {
                 return HttpNotFound();
             }
-            return View(room);
+            
+            return View(Room.ToModel(room));
         }
 
         // POST: Room/Delete/5
@@ -110,19 +102,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Room room = db.Rooms.Find(id);
-            db.Rooms.Remove(room);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+            roomBusiness.Delete(id);
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+            return RedirectToAction("Index");
+        }       
     }
 }
