@@ -17,23 +17,7 @@ namespace ClientPatientManagement.Core.Model
         public Gender Gender { get; set; }        
     }
 
-    [MetadataType(typeof(PatientMetadata))]
-    public partial class Patient
-    {
-        public class PatientMetadata
-        {
-            [Key]
-            [Required]
-            public int Id { get; set; }
-
-            [StringLength(50)]
-            [Required]
-            public string Name { get; set; }    
-            
-            [Required]
-            public Gender Gender { get; set; }
-        }
-    }
+    
 
     //public class PatientModel
     //{

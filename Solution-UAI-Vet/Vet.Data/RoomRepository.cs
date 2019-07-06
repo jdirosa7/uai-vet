@@ -1,13 +1,13 @@
-﻿using ClientPatientManagement.Core.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Vet.Domain;
 using Vet.Services;
 
 namespace ClientPatientManagement.Core.Data
 {
-    public class RoomRepository : IRepository<Room>
+    public class RoomRepository : IRepository<RoomModel>
     {
         public static RoomRepository Instancia = new RoomRepository();
 
@@ -24,28 +24,28 @@ namespace ClientPatientManagement.Core.Data
             db.SaveChanges();
         }
 
-        public Room GetById(int id)
+        public RoomModel GetById(int id)
         {
             var db = new VetDbContext();
             var room = db.Rooms.Find(id);
             return room;
         }
 
-        public void Insert(Room entity)
+        public void Insert(RoomModel entity)
         {
             var db = new VetDbContext();
             db.Rooms.Add(entity);
             db.SaveChanges();
         }
 
-        public IEnumerable<Room> List()
+        public IEnumerable<RoomModel> List()
         {   
             var db = new VetDbContext();
-            IList<Room> rooms = db.Rooms.ToList();
+            IList<RoomModel> rooms = db.Rooms.ToList();
             return rooms;
         }
 
-        public void Update(Room entity)
+        public void Update(RoomModel entity)
         {
             var db = new VetDbContext();
             var room = db.Rooms.Find(entity.Id);

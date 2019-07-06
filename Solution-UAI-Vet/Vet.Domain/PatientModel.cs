@@ -8,18 +8,19 @@ using Vet.Services;
 
 namespace Vet.Domain
 {
-    public partial class ClientModel : IEntity
+    public class PatientModel : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
+        public ClientModel Owner { get; private set; }
+        public int ClientId { get; set; }
+        public GenderModel Gender { get; set; }
     }
 
-    [MetadataType(typeof(ClientMetadata))]
-    public partial class ClientModel
+    [MetadataType(typeof(PatientMetadata))]
+    public partial class Patient
     {
-        public class ClientMetadata
+        public class PatientMetadata
         {
             [Key]
             [Required]
@@ -29,13 +30,8 @@ namespace Vet.Domain
             [Required]
             public string Name { get; set; }
 
-            [StringLength(50)]
             [Required]
-            public string LastName { get; set; }
-
-            [StringLength(50)]
-            [Required]
-            public string Email { get; set; }
+            public GenderModel Gender { get; set; }
         }
     }
 }

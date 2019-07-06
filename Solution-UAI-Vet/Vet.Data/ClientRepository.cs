@@ -1,14 +1,14 @@
 ﻿using ClientPatientManagement.Core.Data;
-using ClientPatientManagement.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Vet.Domain;
 using Vet.Services;
 
 namespace WebApp.Data
 {
-    public class ClientRepository : IRepository<Client>
+    public class ClientRepository : IRepository<ClientModel>
     {
         public static ClientRepository Instancia = new ClientRepository();
 
@@ -20,28 +20,28 @@ namespace WebApp.Data
             db.SaveChanges();
         }
 
-        public Client GetById(int id)
+        public ClientModel GetById(int id)
         {
             var db = new VetDbContext();
             var client = db.Clients.Find(id);
             return client;
         }
 
-        public void Insert(Client entity)
+        public void Insert(ClientModel entity)
         {
             var db = new VetDbContext();
             db.Clients.Add(entity);
             db.SaveChanges();
         }
 
-        public IEnumerable<Client> List()
+        public IEnumerable<ClientModel> List()
         {
             var db = new VetDbContext();
-            IList<Client> clients = db.Clients.ToList();
+            IList<ClientModel> clients = db.Clients.ToList();
             return clients;
         }
 
-        public void Update(Client entity)
+        public void Update(ClientModel entity)
         {
             var db = new VetDbContext();
             var client = db.Clients.Find(entity.Id);

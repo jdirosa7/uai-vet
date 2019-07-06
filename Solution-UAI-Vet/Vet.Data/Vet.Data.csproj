@@ -60,13 +60,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Vet.Services\Vet.Services.csproj">
-      <Project>{4CD9EEA7-DE65-43B0-83A5-17EAF319D77F}</Project>
-      <Name>Vet.Services</Name>
+    <ProjectReference Include="..\Vet.Domain\Vet.Domain.csproj">
+      <Project>{6AEA8595-F2D8-4B1A-8813-67AF347A9ED4}</Project>
+      <Name>Vet.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Vet.WebSite\Vet.WebSite.csproj">
-      <Project>{6AC75335-D59E-4224-8F9C-6147C7569E4A}</Project>
-      <Name>Vet.WebSite</Name>
+    <ProjectReference Include="..\Vet.Services\Vet.Services.csproj">
+      <Project>{4cd9eea7-de65-43b0-83a5-17eaf319d77f}</Project>
+      <Name>Vet.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

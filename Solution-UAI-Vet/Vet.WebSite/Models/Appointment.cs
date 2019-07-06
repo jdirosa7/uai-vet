@@ -21,22 +21,7 @@ namespace ClientPatientManagement.Core.Model
         public int RoomId { get; set; }
     }
 
-    [MetadataType(typeof(AppointmentMetadata))]
-    public partial class Appointment
-    {
-        public class AppointmentMetadata
-        {
-            [Key]
-            [Required]
-            public int Id { get; set; }
-                        
-            [Required]
-            public DateTime Date { get; set; }
-
-            [Required]
-            public int Hour { get; set; }            
-        }
-    }
+    
 
     //public class AppointmentModel
     //{

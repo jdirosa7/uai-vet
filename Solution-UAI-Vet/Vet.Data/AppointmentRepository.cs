@@ -1,14 +1,14 @@
 ﻿using ClientPatientManagement.Core.Data;
-using ClientPatientManagement.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Vet.Domain;
 using Vet.Services;
 
 namespace WebApp.Data
 {
-    public class AppointmentRepository : IRepository<Appointment>
+    public class AppointmentRepository : IRepository<AppointmentModel>
     {
         public static AppointmentRepository Instancia = new AppointmentRepository();
 
@@ -20,28 +20,28 @@ namespace WebApp.Data
             db.SaveChanges();
         }
 
-        public Appointment GetById(int id)
+        public AppointmentModel GetById(int id)
         {
             var db = new VetDbContext();
             var appointment = db.Appointments.Find(id);
             return appointment;
         }
 
-        public void Insert(Appointment entity)
+        public void Insert(AppointmentModel entity)
         {
             var db = new VetDbContext();
             db.Appointments.Add(entity);
             db.SaveChanges();
         }
 
-        public IEnumerable<Appointment> List()
+        public IEnumerable<AppointmentModel> List()
         {
             var db = new VetDbContext();
-            IList<Appointment> appointments = db.Appointments.ToList();
+            IList<AppointmentModel> appointments = db.Appointments.ToList();
             return appointments;
         }
 
-        public void Update(Appointment entity)
+        public void Update(AppointmentModel entity)
         {
             var db = new VetDbContext();
             var appointment = db.Appointments.Find(entity.Id);

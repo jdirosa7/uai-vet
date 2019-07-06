@@ -18,28 +18,5 @@ namespace ClientPatientManagement.Core.Model
         public string LastName { get; set; }
         public string Email { get; set; }
  
-    }
-
-    [MetadataType(typeof(ClientMetadata))]
-    public partial class Client
-    {
-        public class ClientMetadata
-        {
-            [Key]
-            [Required]
-            public int Id { get; set; }
-
-            [StringLength(50)]
-            [Required]
-            public string Name { get; set; }
-
-            [StringLength(50)]
-            [Required]
-            public string LastName { get; set; }
-
-            [StringLength(50)]
-            [Required]
-            public string Email { get; set; }
-        }
     }    
 }
