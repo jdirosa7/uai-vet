@@ -17,60 +17,22 @@ namespace ClientPatientManagement.Core.Model
 
         public static Room ToModel(RoomModel entity)
         {
-            return null;
+            return new Room
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Location = entity.Location
+            };
         }
 
         public static RoomModel FromModel(Room model)
         {
-            return null;
+            return new RoomModel
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Location = model.Location
+            };
         }
     }
-
-    [MetadataType(typeof(RoomMetadata))]
-    public partial class Room
-    {
-        public class RoomMetadata
-        {
-            [Key][Required]
-            public int Id { get; set; }
-
-            [StringLength(50)][Required]
-            public string Name { get; set; }
-
-            [StringLength(50)][Required]
-            public string Location { get; set; }
-        }
-    }
-
-    //public class RoomModel
-    //{
-    //    public IEnumerable<Room> TraerSalas()
-    //    {
-    //        return RoomRepository.Instancia.List();
-    //    }
-
-    //    public void AgregarRoom(string name, string location)
-    //    {
-    //        RoomRepository.Instancia.Insert(new Room()
-    //        {
-    //            Name = name,
-    //            Location = location
-    //        });
-    //    }
-
-    //    public Room ObtenerRoomById(int id)
-    //    {
-    //        return RoomRepository.Instancia.GetById(id);
-    //    }
-
-    //    public void ActualizarRoom(Room room)
-    //    {
-    //        RoomRepository.Instancia.Update(room);
-    //    }
-
-    //    public void EliminarRoom(int id)
-    //    {
-    //        RoomRepository.Instancia.Delete(id);
-    //    }
-    //}
 }

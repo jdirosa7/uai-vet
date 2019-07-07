@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Vet.Domain;
 using Vet.Services;
 
 namespace ClientPatientManagement.Core.Model
@@ -14,34 +15,29 @@ namespace ClientPatientManagement.Core.Model
         public string LastName { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
+
+        public static Doctor ToModel(DoctorModel entity)
+        {
+            return new Doctor
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                LastName = entity.LastName,
+                Phone = entity.Phone,
+                Email = entity.Email
+            };
+        }
+
+        public static DoctorModel FromModel(Doctor model)
+        {
+            return new DoctorModel
+            {
+                Id = model.Id,
+                Name = model.Name,
+                LastName = model.LastName,
+                Phone = model.Phone,
+                Email = model.Email
+            };
+        }
     }
-    
-
-    //public class DoctorModel
-    //{
-    //    public IEnumerable<Doctor> ObtenerDoctores()
-    //    {
-    //        return DoctorRepository.Instancia.List();
-    //    }
-
-    //    public void AgregarDoctor(Doctor doctor)
-    //    {
-    //        DoctorRepository.Instancia.Insert(doctor);
-    //    }
-
-    //    public Doctor ObtenerDoctorById(int id)
-    //    {
-    //        return DoctorRepository.Instancia.GetById(id);
-    //    }
-
-    //    public void ActualizarDoctor(Doctor doctor)
-    //    {
-    //        DoctorRepository.Instancia.Update(doctor);
-    //    }
-
-    //    public void EliminarDoctor(int id)
-    //    {
-    //        DoctorRepository.Instancia.Delete(id);
-    //    }
-    //}
 }

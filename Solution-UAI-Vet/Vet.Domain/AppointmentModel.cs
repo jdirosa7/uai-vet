@@ -15,7 +15,7 @@ namespace Vet.Domain
         public int Hour { get; set; }
         public DoctorModel Doctor { get; set; }
         public int DoctorId { get; set; }
-        public Patient Patient { get; set; }
+        public PatientModel Patient { get; set; }
         public int PatientId { get; set; }
         public RoomModel Room { get; set; }
         public int RoomId { get; set; }

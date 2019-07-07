@@ -8,17 +8,17 @@ using Vet.Services;
 
 namespace Vet.Domain
 {
-    public class PatientModel : IEntity
+    public partial class PatientModel : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ClientModel Owner { get; private set; }
+        public ClientModel Owner { get; set; }
         public int ClientId { get; set; }
         public GenderModel Gender { get; set; }
     }
 
     [MetadataType(typeof(PatientMetadata))]
-    public partial class Patient
+    public partial class PatientModel
     {
         public class PatientMetadata
         {
@@ -32,6 +32,6 @@ namespace Vet.Domain
 
             [Required]
             public GenderModel Gender { get; set; }
-        }
+        }        
     }
 }
