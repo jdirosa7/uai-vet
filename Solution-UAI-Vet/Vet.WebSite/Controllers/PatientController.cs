@@ -19,7 +19,7 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
             var patients = patientBusiness.List();
-            return View(patients.ToList());
+            return View(PatientModel.ToModelList(patients));
         }
 
         // GET: Patient/Details/5

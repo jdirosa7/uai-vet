@@ -20,7 +20,7 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
             var rooms = roomBusiness.List();
-            return View(rooms);
+            return View(RoomModel.ToModelList(rooms));
         }
 
         // GET: Room/Details/5
@@ -79,7 +79,7 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                roomBusiness.Update((Vet.Domain.Room)ClientPatientManagement.Core.Model.RoomModel.FromModel(room));
+                roomBusiness.Update(RoomModel.FromModel(room));
                 return RedirectToAction("Index");
             }
             return View(room);
@@ -88,13 +88,13 @@ namespace WebApp.Controllers
         // GET: Room/Delete/5
         public ActionResult Delete(int id)
         {
-            Vet.Domain.Room room = roomBusiness.GetById(id);
+            Room room = roomBusiness.GetById(id);
             if (room == null)
             {
                 return HttpNotFound();
             }
             
-            return View(ClientPatientManagement.Core.Model.RoomModel.ToModel(room));
+            return View(RoomModel.ToModel(room));
         }
 
         // POST: Room/Delete/5

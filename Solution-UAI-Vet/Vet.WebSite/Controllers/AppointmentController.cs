@@ -22,7 +22,7 @@ namespace WebApp.Controllers
         public ActionResult Index()
         {
             var appointments = appointmentBusiness.List();
-            return View(appointments.ToList());
+            return View(AppointmentModel.ToModelList(appointments));
         }
 
         // GET: Appointment/Details/5

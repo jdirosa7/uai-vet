@@ -19,7 +19,7 @@ namespace WebApp.Models
         public ActionResult Index()
         {
             var clients = clientBusiness.List();
-            return View(clients);
+            return View(ClientModel.ToModelList(clients));
         }
 
         // GET: Client/Details/5
