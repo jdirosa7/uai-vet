@@ -26,13 +26,13 @@ namespace WebApp.Controllers
         // GET: Doctor/Details/5
         public ActionResult Details(int id)
         {
-            DoctorModel doctor = doctorBusiness.GetById(id);
+            Vet.Domain.Doctor doctor = doctorBusiness.GetById(id);
             if (doctor == null)
             {
                 return HttpNotFound();
             }
 
-            return View(Doctor.ToModel(doctor));
+            return View(ClientPatientManagement.Core.Model.DoctorModel.ToModel(doctor));
         }
 
         // GET: Doctor/Create
@@ -46,11 +46,11 @@ namespace WebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,LastName,Phone,Email")] Doctor doctor)
+        public ActionResult Create([Bind(Include = "Id,Name,LastName,Phone,Email")] ClientPatientManagement.Core.Model.DoctorModel doctor)
         {
             if (ModelState.IsValid)
             {
-                doctorBusiness.Insert(Doctor.FromModel(doctor));
+                doctorBusiness.Insert((Vet.Domain.Doctor)ClientPatientManagement.Core.Model.DoctorModel.FromModel(doctor));
 
                 return RedirectToAction("Index");
             }
@@ -61,13 +61,13 @@ namespace WebApp.Controllers
         // GET: Doctor/Edit/5
         public ActionResult Edit(int id)
         {
-            DoctorModel doctor = doctorBusiness.GetById(id);
+            Vet.Domain.Doctor doctor = doctorBusiness.GetById(id);
             if (doctor == null)
             {
                 return HttpNotFound();
             }
 
-            return View(Doctor.ToModel(doctor));
+            return View(ClientPatientManagement.Core.Model.DoctorModel.ToModel(doctor));
         }
 
         // POST: Doctor/Edit/5
@@ -75,11 +75,11 @@ namespace WebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,LastName,Phone,Email")] Doctor doctor)
+        public ActionResult Edit([Bind(Include = "Id,Name,LastName,Phone,Email")] ClientPatientManagement.Core.Model.DoctorModel doctor)
         {
             if (ModelState.IsValid)
             {
-                doctorBusiness.Update(Doctor.FromModel(doctor));
+                doctorBusiness.Update((Vet.Domain.Doctor)ClientPatientManagement.Core.Model.DoctorModel.FromModel(doctor));
 
                 return RedirectToAction("Index");
             }
@@ -89,13 +89,13 @@ namespace WebApp.Controllers
         // GET: Doctor/Delete/5
         public ActionResult Delete(int id)
         {
-            DoctorModel doctor = doctorBusiness.GetById(id);
+            Vet.Domain.Doctor doctor = doctorBusiness.GetById(id);
             if (doctor == null)
             {
                 return HttpNotFound();
             }
 
-            return View(Doctor.ToModel(doctor));
+            return View(ClientPatientManagement.Core.Model.DoctorModel.ToModel(doctor));
         }
 
         // POST: Doctor/Delete/5

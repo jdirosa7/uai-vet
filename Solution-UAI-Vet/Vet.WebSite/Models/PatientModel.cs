@@ -9,21 +9,21 @@ using Vet.Services;
 
 namespace ClientPatientManagement.Core.Model
 {
-    public partial class Patient : IEntity
+    public partial class PatientModel : IEntity
     {
         public int Id { get; set; }
-        public Client Owner { get; set; }
+        public ClientModel Owner { get; set; }
         public int ClientId { get; set; }
         public string Name { get; set; }
-        public Gender Gender { get; set; }
+        public GenderModel Gender { get; set; }
 
-        public static Patient ToModel(PatientModel entity)
+        public static PatientModel ToModel(Vet.Domain.Patient entity)
         {
-            return new Patient
+            return new PatientModel
             {
                 Id = entity.Id,
                 Name = entity.Name,
-                Owner = new Client
+                Owner = new ClientModel
                 {
                     Id = entity.Owner.Id,
                     Name = entity.Owner.Name,
@@ -31,25 +31,25 @@ namespace ClientPatientManagement.Core.Model
                     Email = entity.Owner.Email
                 },
                 ClientId = entity.Owner.Id,
-                Gender = entity.Gender == GenderModel.Female ? Gender.Female : Gender.Male
+                Gender = entity.Gender == Vet.Domain.Gender.Female ? GenderModel.Female : GenderModel.Male
             };
         }
 
-        public static IEnumerable<Patient> ToModelList(IEnumerable<PatientModel> entities)
+        public static IEnumerable<PatientModel> ToModelList(IEnumerable<Vet.Domain.Patient> entities)
         {
-            IList<Patient> patients = new List<Patient>();
+            IList<PatientModel> patients = new List<PatientModel>();
             entities.ToList().ForEach(entity => patients.Add(ToModel(entity)));
 
             return patients;
         }
 
-        public static PatientModel FromModel(Patient model)
+        public static Patient FromModel(PatientModel model)
         {
-            return new PatientModel
+            return new Vet.Domain.Patient
             {
                 Id = model.Id,
                 Name = model.Name,
-                Owner = new ClientModel
+                Owner = new Vet.Domain.Client
                 {
                     Id = model.Owner.Id,
                     Name = model.Owner.Name,
@@ -57,7 +57,7 @@ namespace ClientPatientManagement.Core.Model
                     Email = model.Owner.Email
                 },
                 ClientId = model.Owner.Id,
-                Gender = model.Gender == Gender.Female ? GenderModel.Female : GenderModel.Male
+                Gender = model.Gender == GenderModel.Female ? Vet.Domain.Gender.Female : Vet.Domain.Gender.Male
             };
         }
     }

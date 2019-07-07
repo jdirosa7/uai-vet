@@ -9,7 +9,7 @@ using Vet.Services;
 
 namespace WebApp.Data
 {
-    public class ClientRepository : IRepository<ClientModel>
+    public class ClientRepository : IRepository<Client>
     {
         public static ClientRepository Instancia = new ClientRepository();
 
@@ -21,28 +21,28 @@ namespace WebApp.Data
             db.SaveChanges();
         }
 
-        public ClientModel GetById(int id)
+        public Client GetById(int id)
         {
             var db = new VetDbContext();
             var client = db.Clients.Find(id);
             return client;
         }
 
-        public void Insert(ClientModel entity)
+        public void Insert(Client entity)
         {
             var db = new VetDbContext();
             db.Clients.Add(entity);
             db.SaveChanges();
         }
 
-        public IEnumerable<ClientModel> List()
+        public IEnumerable<Client> List()
         {
             var db = new VetDbContext();
-            IList<ClientModel> clients = db.Clients.ToList();
+            IList<Client> clients = db.Clients.ToList();
             return clients;
         }
 
-        public void Update(ClientModel entity)
+        public void Update(Client entity)
         {
             var db = new VetDbContext();
             var client = db.Clients.Find(entity.Id);

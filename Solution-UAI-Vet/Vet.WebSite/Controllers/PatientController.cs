@@ -25,13 +25,13 @@ namespace WebApp.Controllers
         // GET: Patient/Details/5
         public ActionResult Details(int id)
         {
-            PatientModel patient = patientBusiness.GetById(id);
+            Vet.Domain.Patient patient = patientBusiness.GetById(id);
             if (patient == null)
             {
                 return HttpNotFound();
             }
 
-            return View(Patient.ToModel(patient));
+            return View(ClientPatientManagement.Core.Model.PatientModel.ToModel(patient));
         }
 
         // GET: Patient/Create
@@ -47,11 +47,11 @@ namespace WebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ClientId,Name,Gender")] Patient patient)
+        public ActionResult Create([Bind(Include = "Id,ClientId,Name,Gender")] ClientPatientManagement.Core.Model.PatientModel patient)
         {
             if (ModelState.IsValid)
             {
-                patientBusiness.Insert(Patient.FromModel(patient));
+                patientBusiness.Insert((Vet.Domain.Patient)ClientPatientManagement.Core.Model.PatientModel.FromModel(patient));
 
                 return RedirectToAction("Index");
             }
@@ -64,7 +64,7 @@ namespace WebApp.Controllers
         // GET: Patient/Edit/5
         public ActionResult Edit(int id)
         {
-            PatientModel patient = patientBusiness.GetById(id);
+            Vet.Domain.Patient patient = patientBusiness.GetById(id);
             if (patient == null)
             {
                 return HttpNotFound();
@@ -80,11 +80,11 @@ namespace WebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ClientId,Name,Gender")] Patient patient)
+        public ActionResult Edit([Bind(Include = "Id,ClientId,Name,Gender")] ClientPatientManagement.Core.Model.PatientModel patient)
         {
             if (ModelState.IsValid)
             {
-                patientBusiness.Update(Patient.FromModel(patient));
+                patientBusiness.Update((Vet.Domain.Patient)ClientPatientManagement.Core.Model.PatientModel.FromModel(patient));
 
                 return RedirectToAction("Index");
             }
@@ -97,13 +97,13 @@ namespace WebApp.Controllers
         // GET: Patient/Delete/5
         public ActionResult Delete(int id)
         {
-            PatientModel patient = patientBusiness.GetById(id);
+            Vet.Domain.Patient patient = patientBusiness.GetById(id);
             if (patient == null)
             {
                 return HttpNotFound();
             }
 
-            return View(Patient.ToModel(patient));
+            return View(ClientPatientManagement.Core.Model.PatientModel.ToModel(patient));
         }
 
         // POST: Patient/Delete/5

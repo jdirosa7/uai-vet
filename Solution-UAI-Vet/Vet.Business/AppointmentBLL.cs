@@ -7,29 +7,29 @@ using WebApp.Data;
 
 namespace Vet.Business
 {
-    public class AppointmentBLL : IRepository<AppointmentModel>
+    public class AppointmentBLL : IRepository<Appointment>
     {
         public void Delete(int id)
         {
             AppointmentRepository.Instancia.Delete(id);
         }
 
-        public AppointmentModel GetById(int id)
+        public Appointment GetById(int id)
         {
             return AppointmentRepository.Instancia.GetById(id);
         }
 
-        public void Insert(AppointmentModel entity)
+        public void Insert(Appointment entity)
         {
             AppointmentRepository.Instancia.Insert(entity);
         }
 
-        public IEnumerable<AppointmentModel> List()
+        public IEnumerable<Appointment> List()
         {
             return AppointmentRepository.Instancia.List();
         }
 
-        public void Update(AppointmentModel entity)
+        public void Update(Appointment entity)
         {
             AppointmentRepository.Instancia.Update(entity);
         }

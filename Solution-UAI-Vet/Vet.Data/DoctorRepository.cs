@@ -8,7 +8,7 @@ using Vet.Services;
 
 namespace ClientPatientManagement.Core.Data
 {
-    public class DoctorRepository : IRepository<DoctorModel>
+    public class DoctorRepository : IRepository<Doctor>
     {
         public static DoctorRepository Instancia = new DoctorRepository();
 
@@ -25,28 +25,28 @@ namespace ClientPatientManagement.Core.Data
             db.SaveChanges();
         }
 
-        public DoctorModel GetById(int id)
+        public Doctor GetById(int id)
         {
             var db = new VetDbContext();
             var doctor = db.Doctors.Find(id);
             return doctor;
         }
 
-        public void Insert(DoctorModel entity)
+        public void Insert(Doctor entity)
         {
             var db = new VetDbContext();
             db.Doctors.Add(entity);
             db.SaveChanges();
         }
 
-        public IEnumerable<DoctorModel> List()
+        public IEnumerable<Doctor> List()
         {
             var db = new VetDbContext();
-            IList<DoctorModel> doctors = db.Doctors.ToList();
+            IList<Doctor> doctors = db.Doctors.ToList();
             return doctors;
         }
 
-        public void Update(DoctorModel entity)
+        public void Update(Doctor entity)
         {
             var db = new VetDbContext();
             var doctor = db.Doctors.Find(entity.Id);

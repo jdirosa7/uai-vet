@@ -25,15 +25,15 @@ namespace WebApp.Controllers
 
         // GET: Room/Details/5
         public ActionResult Details(int id)
-        {            
-            RoomModel room = roomBusiness.GetById(id);
+        {
+            Vet.Domain.Room room = roomBusiness.GetById(id);
             if (room == null)
             {
                 return HttpNotFound();
             }
 
             //Mapear RoomModel a Room
-            return View(Room.ToModel(room));
+            return View(ClientPatientManagement.Core.Model.RoomModel.ToModel(room));
         }
 
         // GET: Room/Create
@@ -47,11 +47,11 @@ namespace WebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Location")] Room room)
+        public ActionResult Create([Bind(Include = "Id,Name,Location")] ClientPatientManagement.Core.Model.RoomModel room)
         {
             if (ModelState.IsValid)
             {
-                roomBusiness.Insert(Room.FromModel(room));                
+                roomBusiness.Insert(RoomModel.FromModel(room));                
                 return RedirectToAction("Index");
             }
 
@@ -60,14 +60,14 @@ namespace WebApp.Controllers
 
         // GET: Room/Edit/5
         public ActionResult Edit(int id)
-        {            
-            RoomModel room = roomBusiness.GetById(id);
+        {
+            Vet.Domain.Room room = roomBusiness.GetById(id);
             if (room == null)
             {
                 return HttpNotFound();
             }
 
-            return View(Room.ToModel(room));
+            return View(ClientPatientManagement.Core.Model.RoomModel.ToModel(room));
         }
 
         // POST: Room/Edit/5
@@ -75,11 +75,11 @@ namespace WebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Location")] Room room)
+        public ActionResult Edit([Bind(Include = "Id,Name,Location")] ClientPatientManagement.Core.Model.RoomModel room)
         {
             if (ModelState.IsValid)
             {
-                roomBusiness.Update(Room.FromModel(room));
+                roomBusiness.Update((Vet.Domain.Room)ClientPatientManagement.Core.Model.RoomModel.FromModel(room));
                 return RedirectToAction("Index");
             }
             return View(room);
@@ -88,13 +88,13 @@ namespace WebApp.Controllers
         // GET: Room/Delete/5
         public ActionResult Delete(int id)
         {
-            RoomModel room = roomBusiness.GetById(id);
+            Vet.Domain.Room room = roomBusiness.GetById(id);
             if (room == null)
             {
                 return HttpNotFound();
             }
             
-            return View(Room.ToModel(room));
+            return View(ClientPatientManagement.Core.Model.RoomModel.ToModel(room));
         }
 
         // POST: Room/Delete/5

@@ -8,7 +8,7 @@ using Vet.Services;
 
 namespace Vet.Domain
 {
-    public partial class ClientModel : IEntity
+    public partial class Client : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -17,7 +17,7 @@ namespace Vet.Domain
     }
 
     [MetadataType(typeof(ClientMetadata))]
-    public partial class ClientModel
+    public partial class Client
     {
         public class ClientMetadata
         {

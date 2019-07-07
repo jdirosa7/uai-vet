@@ -7,7 +7,7 @@ using Vet.Services;
 
 namespace Vet.Business
 {
-    public class RoomBLL : IRepository<RoomModel>
+    public class RoomBLL : IRepository<Room>
     {
 
         public void Delete(int id)
@@ -15,22 +15,22 @@ namespace Vet.Business
             RoomRepository.Instancia.Delete(id);
         }
 
-        public RoomModel GetById(int id)
+        public Room GetById(int id)
         {
             return RoomRepository.Instancia.GetById(id);
         }
 
-        public void Insert(RoomModel entity)
+        public void Insert(Room entity)
         {
             RoomRepository.Instancia.Insert(entity);
         }
 
-        public IEnumerable<RoomModel> List()
+        public IEnumerable<Room> List()
         {
             return RoomRepository.Instancia.List();
         }
 
-        public void Update(RoomModel entity)
+        public void Update(Room entity)
         {
             RoomRepository.Instancia.Update(entity);
         }

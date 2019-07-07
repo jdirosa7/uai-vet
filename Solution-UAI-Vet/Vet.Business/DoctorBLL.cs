@@ -7,29 +7,29 @@ using Vet.Services;
 
 namespace Vet.Business
 {
-    public class DoctorBLL : IRepository<DoctorModel>
+    public class DoctorBLL : IRepository<Doctor>
     {
         public void Delete(int id)
         {
             DoctorRepository.Instancia.Delete(id);
         }
 
-        public DoctorModel GetById(int id)
+        public Doctor GetById(int id)
         {
             return DoctorRepository.Instancia.GetById(id);
         }
 
-        public void Insert(DoctorModel entity)
+        public void Insert(Doctor entity)
         {
             DoctorRepository.Instancia.Insert(entity);
         }
 
-        public IEnumerable<DoctorModel> List()
+        public IEnumerable<Doctor> List()
         {
             return DoctorRepository.Instancia.List();
         }
 
-        public void Update(DoctorModel entity)
+        public void Update(Doctor entity)
         {
             DoctorRepository.Instancia.Update(entity);
         }

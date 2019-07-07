@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace Vet.Domain
+namespace ClientPatientManagement.Core.Model
 {
     public enum GenderModel
     {
-        Male = 1,
-        Female = 2
+        Female = 1,
+        Male = 2
     }
 }

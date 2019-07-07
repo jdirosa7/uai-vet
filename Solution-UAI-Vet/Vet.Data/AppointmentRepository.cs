@@ -9,7 +9,7 @@ using Vet.Services;
 
 namespace WebApp.Data
 {
-    public class AppointmentRepository : IRepository<AppointmentModel>
+    public class AppointmentRepository : IRepository<Appointment>
     {
         public static AppointmentRepository Instancia = new AppointmentRepository();
 
@@ -21,28 +21,28 @@ namespace WebApp.Data
             db.SaveChanges();
         }
 
-        public AppointmentModel GetById(int id)
+        public Appointment GetById(int id)
         {
             var db = new VetDbContext();
             var appointment = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Room).Where(x => x.Id == id).Single();
             return appointment;
         }
 
-        public void Insert(AppointmentModel entity)
+        public void Insert(Appointment entity)
         {
             var db = new VetDbContext();
             db.Appointments.Add(entity);
             db.SaveChanges();
         }
 
-        public IEnumerable<AppointmentModel> List()
+        public IEnumerable<Appointment> List()
         {
             var db = new VetDbContext();
-            IList<AppointmentModel> appointments = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Room).ToList();
+            IList<Appointment> appointments = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Room).ToList();
             return appointments;
         }
 
-        public void Update(AppointmentModel entity)
+        public void Update(Appointment entity)
         {
             var db = new VetDbContext();
             var appointment = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Room).Where(x => x.Id == entity.Id).Single();

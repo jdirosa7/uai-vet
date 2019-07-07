@@ -7,29 +7,29 @@ using WebApp.Data;
 
 namespace Vet.Business
 {
-    public class PatientBLL : IRepository<PatientModel>
+    public class PatientBLL : IRepository<Patient>
     {
         public void Delete(int id)
         {
             PatientRepository.Instancia.Delete(id);
         }
 
-        public PatientModel GetById(int id)
+        public Patient GetById(int id)
         {
             return PatientRepository.Instancia.GetById(id);
         }
 
-        public void Insert(PatientModel entity)
+        public void Insert(Patient entity)
         {
             PatientRepository.Instancia.Insert(entity);
         }
 
-        public IEnumerable<PatientModel> List()
+        public IEnumerable<Patient> List()
         {
             return PatientRepository.Instancia.List();
         }
 
-        public void Update(PatientModel entity)
+        public void Update(Patient entity)
         {
             PatientRepository.Instancia.Update(entity);
         }

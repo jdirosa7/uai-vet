@@ -28,13 +28,13 @@ namespace WebApp.Controllers
         // GET: Appointment/Details/5
         public ActionResult Details(int id)
         {
-            AppointmentModel appointment = appointmentBusiness.GetById(id);
+            Appointment appointment = appointmentBusiness.GetById(id);
             if (appointment == null)
             {
                 return HttpNotFound();
             }
 
-            return View(Appointment.ToModel(appointment));
+            return View(AppointmentModel.ToModel(appointment));
         }
 
         // GET: Appointment/Create
@@ -51,11 +51,11 @@ namespace WebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Date,Hour,DoctorId,PatientId,RoomId")] Appointment appointment)
+        public ActionResult Create([Bind(Include = "Id,Date,Hour,DoctorId,PatientId,RoomId")] AppointmentModel appointment)
         {
             if (ModelState.IsValid)
             {
-                appointmentBusiness.Insert(Appointment.FromModel(appointment));
+                appointmentBusiness.Insert(AppointmentModel.FromModel(appointment));
 
                 return RedirectToAction("Index");
             }
@@ -69,7 +69,7 @@ namespace WebApp.Controllers
         // GET: Appointment/Edit/5
         public ActionResult Edit(int id)
         {            
-            AppointmentModel appointment = appointmentBusiness.GetById(id);
+            Appointment appointment = appointmentBusiness.GetById(id);
             if (appointment == null)
             {
                 return HttpNotFound();
@@ -78,7 +78,7 @@ namespace WebApp.Controllers
             ViewBag.DoctorId = new SelectList(doctorBusiness.List(), "Id", "Name");
             ViewBag.PatientId = new SelectList(patientBusiness.List(), "Id", "Name");
             ViewBag.RoomId = new SelectList(roomBusiness.List(), "Id", "Name");
-            return View(Appointment.ToModel(appointment));
+            return View(AppointmentModel.ToModel(appointment));
         }
 
         // POST: Appointment/Edit/5
@@ -86,11 +86,11 @@ namespace WebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Date,Hour,DoctorId,PatientId,RoomId")] Appointment appointment)
+        public ActionResult Edit([Bind(Include = "Id,Date,Hour,DoctorId,PatientId,RoomId")] AppointmentModel appointment)
         {
             if (ModelState.IsValid)
             {
-                appointmentBusiness.Update(Appointment.FromModel(appointment));
+                appointmentBusiness.Update(AppointmentModel.FromModel(appointment));
 
                 return RedirectToAction("Index");
             }
@@ -104,7 +104,7 @@ namespace WebApp.Controllers
         // GET: Appointment/Delete/5
         public ActionResult Delete(int id)
         {
-            AppointmentModel appointment = appointmentBusiness.GetById(id);
+            Appointment appointment = appointmentBusiness.GetById(id);
             if (appointment == null)
             {
                 return HttpNotFound();

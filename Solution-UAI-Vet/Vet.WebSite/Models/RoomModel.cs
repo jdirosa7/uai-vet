@@ -8,16 +8,16 @@ using Vet.Services;
 
 namespace ClientPatientManagement.Core.Model
 {
-    public partial class Room : IEntity
+    public partial class RoomModel : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
 
 
-        public static Room ToModel(RoomModel entity)
+        public static RoomModel ToModel(Vet.Domain.Room entity)
         {
-            return new Room
+            return new RoomModel
             {
                 Id = entity.Id,
                 Name = entity.Name,
@@ -25,17 +25,17 @@ namespace ClientPatientManagement.Core.Model
             };
         }
 
-        public static IEnumerable<Room> ToModelList(IEnumerable<RoomModel> entities)
+        public static IEnumerable<RoomModel> ToModelList(IEnumerable<Vet.Domain.Room> entities)
         {
-            IList<Room> rooms = new List<Room>();
+            IList<RoomModel> rooms = new List<RoomModel>();
             entities.ToList().ForEach(entity => rooms.Add(ToModel(entity)));
 
             return rooms;
         }
 
-        public static RoomModel FromModel(Room model)
+        public static Room FromModel(RoomModel model)
         {
-            return new RoomModel
+            return new Room
             {
                 Id = model.Id,
                 Name = model.Name,

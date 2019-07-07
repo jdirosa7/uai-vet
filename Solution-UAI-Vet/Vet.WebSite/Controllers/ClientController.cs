@@ -25,13 +25,13 @@ namespace WebApp.Models
         // GET: Client/Details/5
         public ActionResult Details(int id)
         {
-            ClientModel client = clientBusiness.GetById(id);
+            Vet.Domain.Client client = clientBusiness.GetById(id);
             if (client == null)
             {
                 return HttpNotFound();
             }
 
-            return View(Client.ToModel(client));
+            return View(ClientPatientManagement.Core.Model.ClientModel.ToModel(client));
         }
 
         // GET: Client/Create
@@ -45,11 +45,11 @@ namespace WebApp.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,LastName,Email")] Client client)
+        public ActionResult Create([Bind(Include = "Id,Name,LastName,Email")] ClientModel client)
         {
             if (ModelState.IsValid)
             {
-                clientBusiness.Insert(Client.FromModel(client));
+                clientBusiness.Insert(ClientModel.FromModel(client));
 
                 return RedirectToAction("Index");
             }
@@ -60,12 +60,12 @@ namespace WebApp.Models
         // GET: Client/Edit/5
         public ActionResult Edit(int id)
         {
-            ClientModel client = clientBusiness.GetById(id);
+            Vet.Domain.Client client = clientBusiness.GetById(id);
             if (client == null)
             {
                 return HttpNotFound();
             }
-            return View(Client.ToModel(client));
+            return View(ClientPatientManagement.Core.Model.ClientModel.ToModel(client));
         }
 
         // POST: Client/Edit/5
@@ -73,11 +73,11 @@ namespace WebApp.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,LastName,Email")] Client client)
+        public ActionResult Edit([Bind(Include = "Id,Name,LastName,Email")] ClientPatientManagement.Core.Model.ClientModel client)
         {
             if (ModelState.IsValid)
             {
-                clientBusiness.Update(Client.FromModel(client));
+                clientBusiness.Update((Vet.Domain.Client)ClientPatientManagement.Core.Model.ClientModel.FromModel(client));
 
                 return RedirectToAction("Index");
             }
@@ -87,12 +87,12 @@ namespace WebApp.Models
         // GET: Client/Delete/5
         public ActionResult Delete(int id)
         {
-            ClientModel client = clientBusiness.GetById(id);
+            Vet.Domain.Client client = clientBusiness.GetById(id);
             if (client == null)
             {
                 return HttpNotFound();
             }
-            return View(Client.ToModel(client));
+            return View(ClientPatientManagement.Core.Model.ClientModel.ToModel(client));
         }
 
         // POST: Client/Delete/5

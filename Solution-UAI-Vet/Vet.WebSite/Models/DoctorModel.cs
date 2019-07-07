@@ -1,48 +1,51 @@
-﻿using Vet.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Vet.Domain;
+using Vet.Services;
 
 namespace ClientPatientManagement.Core.Model
 {
-    public partial class Client : IEntity
-    {        
+    public partial class DoctorModel : IEntity
+    {
         public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
+        public string Phone { get; set; }
         public string Email { get; set; }
 
-        public static Client ToModel(ClientModel entity)
+        public static DoctorModel ToModel(Vet.Domain.Doctor entity)
         {
-            return new Client
+            return new DoctorModel
             {
                 Id = entity.Id,
                 Name = entity.Name,
                 LastName = entity.LastName,
+                Phone = entity.Phone,
                 Email = entity.Email
             };
         }
 
-        public static IEnumerable<Client> ToModelList(IEnumerable<ClientModel> entities)
+        public static IEnumerable<DoctorModel> ToModelList(IEnumerable<Vet.Domain.Doctor> entities)
         {
-            IList<Client> clients = new List<Client>();
-            entities.ToList().ForEach(entity => clients.Add(ToModel(entity)));
+            IList<DoctorModel> doctors = new List<DoctorModel>();
+            entities.ToList().ForEach(entity => doctors.Add(ToModel(entity)));
 
-            return clients;
+            return doctors;
         }
 
-        public static ClientModel FromModel(Client model)
+        public static Doctor FromModel(DoctorModel model)
         {
-            return new ClientModel
+            return new Vet.Domain.Doctor
             {
                 Id = model.Id,
                 Name = model.Name,
                 LastName = model.LastName,
+                Phone = model.Phone,
                 Email = model.Email
             };
         }
-    }    
+    }
 }

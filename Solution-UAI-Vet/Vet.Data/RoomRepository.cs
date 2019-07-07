@@ -8,7 +8,7 @@ using Vet.Services;
 
 namespace ClientPatientManagement.Core.Data
 {
-    public class RoomRepository : IRepository<RoomModel>
+    public class RoomRepository : IRepository<Room>
     {
         public static RoomRepository Instancia = new RoomRepository();
 
@@ -25,28 +25,28 @@ namespace ClientPatientManagement.Core.Data
             db.SaveChanges();
         }
 
-        public RoomModel GetById(int id)
+        public Room GetById(int id)
         {
             var db = new VetDbContext();
             var room = db.Rooms.Find(id);
             return room;
         }
 
-        public void Insert(RoomModel entity)
+        public void Insert(Room entity)
         {
             var db = new VetDbContext();
             db.Rooms.Add(entity);
             db.SaveChanges();
         }
 
-        public IEnumerable<RoomModel> List()
+        public IEnumerable<Room> List()
         {   
             var db = new VetDbContext();
-            IList<RoomModel> rooms = db.Rooms.ToList();
+            IList<Room> rooms = db.Rooms.ToList();
             return rooms;
         }
 
-        public void Update(RoomModel entity)
+        public void Update(Room entity)
         {
             var db = new VetDbContext();
             db.Entry(entity).State = EntityState.Modified;

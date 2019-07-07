@@ -9,7 +9,7 @@ using Vet.Services;
 
 namespace WebApp.Data
 {
-    public class PatientRepository : IRepository<PatientModel>
+    public class PatientRepository : IRepository<Patient>
     {
         public static PatientRepository Instancia = new PatientRepository();
 
@@ -21,28 +21,28 @@ namespace WebApp.Data
             db.SaveChanges();
         }
 
-        public PatientModel GetById(int id)
+        public Patient GetById(int id)
         {
             var db = new VetDbContext();
             var patient = db.Patients.Include(a => a.Owner).Where(x => x.Id == id).Single();
             return patient;
         }
 
-        public void Insert(PatientModel entity)
+        public void Insert(Patient entity)
         {
             var db = new VetDbContext();
             db.Patients.Add(entity);
             db.SaveChanges();
         }
 
-        public IEnumerable<PatientModel> List()
+        public IEnumerable<Patient> List()
         {
             var db = new VetDbContext();
-            IList<PatientModel> patients = db.Patients.ToList();
+            IList<Patient> patients = db.Patients.ToList();
             return patients;
         }
 
-        public void Update(PatientModel entity)
+        public void Update(Patient entity)
         {
             var db = new VetDbContext();
             var patient = db.Patients.Include(a => a.Owner).Where(x => x.Id == entity.Id).Single();
