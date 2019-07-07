@@ -324,6 +324,14 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Vet.Business\Vet.Business.csproj">
+      <Project>{fd1e2dd9-e935-4f77-a0de-cf89cbc4ae58}</Project>
+      <Name>Vet.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vet.Domain\Vet.Domain.csproj">
+      <Project>{6aea8595-f2d8-4b1a-8813-67af347a9ed4}</Project>
+      <Name>Vet.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Vet.Services\Vet.Services.csproj">
       <Project>{4CD9EEA7-DE65-43B0-83A5-17EAF319D77F}</Project>
       <Name>Vet.Services</Name>

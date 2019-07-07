@@ -7,42 +7,42 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ClientPatientManagement.Core.Model;
+using Vet.Business;
+using Vet.Domain;
 
 namespace WebApp.Controllers
 {
     public class AppointmentController : Controller
     {
-        private VetDbContext db = new VetDbContext();
-
+        AppointmentBLL appointmentBusiness = new AppointmentBLL();
+        DoctorBLL doctorBusiness = new DoctorBLL();
+        PatientBLL patientBusiness = new PatientBLL();
+        RoomBLL roomBusiness = new RoomBLL();
         // GET: Appointment
         public ActionResult Index()
         {
-            
-            var appointments = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Room);
+            var appointments = appointmentBusiness.List();
             return View(appointments.ToList());
         }
 
         // GET: Appointment/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Appointment appointment = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Room).Where(x => x.Id == id).Single();
+            AppointmentModel appointment = appointmentBusiness.GetById(id);
             if (appointment == null)
             {
                 return HttpNotFound();
             }
-            return View(appointment);
+
+            return View(Appointment.ToModel(appointment));
         }
 
         // GET: Appointment/Create
         public ActionResult Create()
         {
-            ViewBag.DoctorId = new SelectList(db.Doctors, "Id", "Name");
-            ViewBag.PatientId = new SelectList(db.Patients, "Id", "Name");
-            ViewBag.RoomId = new SelectList(db.Rooms, "Id", "Name");
+            ViewBag.DoctorId = new SelectList(doctorBusiness.List(), "Id", "Name");
+            ViewBag.PatientId = new SelectList(patientBusiness.List(), "Id", "Name");
+            ViewBag.RoomId = new SelectList(roomBusiness.List(), "Id", "Name");
             return View();
         }
 
@@ -55,33 +55,30 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Appointments.Add(appointment);
-                db.SaveChanges();
+                appointmentBusiness.Insert(Appointment.FromModel(appointment));
+
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DoctorId = new SelectList(db.Doctors, "Id", "Name", appointment.DoctorId);
-            ViewBag.PatientId = new SelectList(db.Patients, "Id", "Name", appointment.PatientId);
-            ViewBag.RoomId = new SelectList(db.Rooms, "Id", "Name", appointment.RoomId);
+            ViewBag.DoctorId = new SelectList(doctorBusiness.List(), "Id", "Name");
+            ViewBag.PatientId = new SelectList(patientBusiness.List(), "Id", "Name");
+            ViewBag.RoomId = new SelectList(roomBusiness.List(), "Id", "Name");
             return View(appointment);
         }
 
         // GET: Appointment/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Appointment appointment = db.Appointments.Find(id);
+        public ActionResult Edit(int id)
+        {            
+            AppointmentModel appointment = appointmentBusiness.GetById(id);
             if (appointment == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.DoctorId = new SelectList(db.Doctors, "Id", "Name", appointment.DoctorId);
-            ViewBag.PatientId = new SelectList(db.Patients, "Id", "Name", appointment.PatientId);
-            ViewBag.RoomId = new SelectList(db.Rooms, "Id", "Name", appointment.RoomId);
-            return View(appointment);
+
+            ViewBag.DoctorId = new SelectList(doctorBusiness.List(), "Id", "Name");
+            ViewBag.PatientId = new SelectList(patientBusiness.List(), "Id", "Name");
+            ViewBag.RoomId = new SelectList(roomBusiness.List(), "Id", "Name");
+            return View(Appointment.ToModel(appointment));
         }
 
         // POST: Appointment/Edit/5
@@ -93,24 +90,21 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(appointment).State = EntityState.Modified;
-                db.SaveChanges();
+                appointmentBusiness.Update(Appointment.FromModel(appointment));
+
                 return RedirectToAction("Index");
             }
-            ViewBag.DoctorId = new SelectList(db.Doctors, "Id", "Name", appointment.DoctorId);
-            ViewBag.PatientId = new SelectList(db.Patients, "Id", "Name", appointment.PatientId);
-            ViewBag.RoomId = new SelectList(db.Rooms, "Id", "Name", appointment.RoomId);
+
+            ViewBag.DoctorId = new SelectList(doctorBusiness.List(), "Id", "Name");
+            ViewBag.PatientId = new SelectList(patientBusiness.List(), "Id", "Name");
+            ViewBag.RoomId = new SelectList(roomBusiness.List(), "Id", "Name");
             return View(appointment);
         }
 
         // GET: Appointment/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Appointment appointment = db.Appointments.Find(id);
+            AppointmentModel appointment = appointmentBusiness.GetById(id);
             if (appointment == null)
             {
                 return HttpNotFound();
@@ -123,19 +117,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Appointment appointment = db.Appointments.Find(id);
-            db.Appointments.Remove(appointment);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+            appointmentBusiness.Delete(id);
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -6,34 +6,33 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ClientPatientManagement.Core.Data;
 using ClientPatientManagement.Core.Model;
+using Vet.Business;
+using Vet.Domain;
 
 namespace WebApp.Controllers
 {
     public class DoctorController : Controller
     {
-        private VetDbContext db = new VetDbContext();
-
+        DoctorBLL doctorBusiness = new DoctorBLL();
         // GET: Doctor
         public ActionResult Index()
         {
-            return View(db.Doctors.ToList());
+            var doctors = doctorBusiness.List();
+            //Mapear este listado tambien
+            return View(doctors);
         }
 
         // GET: Doctor/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Doctor doctor = db.Doctors.Find(id);
+            DoctorModel doctor = doctorBusiness.GetById(id);
             if (doctor == null)
             {
                 return HttpNotFound();
             }
-            return View(doctor);
+
+            return View(Doctor.ToModel(doctor));
         }
 
         // GET: Doctor/Create
@@ -51,8 +50,8 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Doctors.Add(doctor);
-                db.SaveChanges();
+                doctorBusiness.Insert(Doctor.FromModel(doctor));
+
                 return RedirectToAction("Index");
             }
 
@@ -60,18 +59,15 @@ namespace WebApp.Controllers
         }
 
         // GET: Doctor/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Doctor doctor = db.Doctors.Find(id);
+            DoctorModel doctor = doctorBusiness.GetById(id);
             if (doctor == null)
             {
                 return HttpNotFound();
             }
-            return View(doctor);
+
+            return View(Doctor.ToModel(doctor));
         }
 
         // POST: Doctor/Edit/5
@@ -83,26 +79,23 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(doctor).State = EntityState.Modified;
-                db.SaveChanges();
+                doctorBusiness.Update(Doctor.FromModel(doctor));
+
                 return RedirectToAction("Index");
             }
             return View(doctor);
         }
 
         // GET: Doctor/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Doctor doctor = db.Doctors.Find(id);
+            DoctorModel doctor = doctorBusiness.GetById(id);
             if (doctor == null)
             {
                 return HttpNotFound();
             }
-            return View(doctor);
+
+            return View(Doctor.ToModel(doctor));
         }
 
         // POST: Doctor/Delete/5
@@ -110,19 +103,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Doctor doctor = db.Doctors.Find(id);
-            db.Doctors.Remove(doctor);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+            doctorBusiness.Delete(id);
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+            return RedirectToAction("Index");
+        }        
     }
 }

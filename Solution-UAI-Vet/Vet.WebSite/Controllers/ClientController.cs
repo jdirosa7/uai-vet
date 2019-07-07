@@ -6,35 +6,32 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ClientPatientManagement.Core.Data;
 using ClientPatientManagement.Core.Model;
+using Vet.Business;
+using Vet.Domain;
 
 namespace WebApp.Models
 {
     public class ClientController : Controller
     {
-        private VetDbContext db = new VetDbContext();
-
+        ClientBLL clientBusiness = new ClientBLL();
         // GET: Client
         public ActionResult Index()
         {
-            var model = new ClientModel();
-            return View(db.Clients.ToList());
+            var clients = clientBusiness.List();
+            return View(clients);
         }
 
         // GET: Client/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Client client = db.Clients.Find(id);
+            ClientModel client = clientBusiness.GetById(id);
             if (client == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+
+            return View(Client.ToModel(client));
         }
 
         // GET: Client/Create
@@ -52,8 +49,8 @@ namespace WebApp.Models
         {
             if (ModelState.IsValid)
             {
-                db.Clients.Add(client);
-                db.SaveChanges();
+                clientBusiness.Insert(Client.FromModel(client));
+
                 return RedirectToAction("Index");
             }
 
@@ -61,18 +58,14 @@ namespace WebApp.Models
         }
 
         // GET: Client/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Client client = db.Clients.Find(id);
+            ClientModel client = clientBusiness.GetById(id);
             if (client == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View(Client.ToModel(client));
         }
 
         // POST: Client/Edit/5
@@ -84,26 +77,22 @@ namespace WebApp.Models
         {
             if (ModelState.IsValid)
             {
-                db.Entry(client).State = EntityState.Modified;
-                db.SaveChanges();
+                clientBusiness.Update(Client.FromModel(client));
+
                 return RedirectToAction("Index");
             }
             return View(client);
         }
 
         // GET: Client/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Client client = db.Clients.Find(id);
+            ClientModel client = clientBusiness.GetById(id);
             if (client == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View(Client.ToModel(client));
         }
 
         // POST: Client/Delete/5
@@ -111,19 +100,9 @@ namespace WebApp.Models
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Client client = db.Clients.Find(id);
-            db.Clients.Remove(client);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+            clientBusiness.Delete(id);
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return RedirectToAction("Index");
         }
     }
 }

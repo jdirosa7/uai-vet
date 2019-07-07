@@ -1,6 +1,7 @@
 ﻿using ClientPatientManagement.Core.Data;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Vet.Domain;
@@ -48,10 +49,7 @@ namespace WebApp.Data
 
             if (client != null)
             {
-                client.Name = entity.Name;
-                client.LastName = entity.LastName;
-                client.Email = entity.Email;
-
+                db.Entry(entity).State = EntityState.Modified;
                 db.SaveChanges();
             }
         }

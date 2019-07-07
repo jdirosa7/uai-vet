@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vet.Services", "Vet.Service
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vet.WebSite", "Vet.WebSite\Vet.WebSite.csproj", "{6AC75335-D59E-4224-8F9C-6147C7569E4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vet.Business", "Vet.Business\Vet.Business.csproj", "{FD1E2DD9-E935-4F77-A0DE-CF89CBC4AE58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{6AC75335-D59E-4224-8F9C-6147C7569E4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AC75335-D59E-4224-8F9C-6147C7569E4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AC75335-D59E-4224-8F9C-6147C7569E4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD1E2DD9-E935-4F77-A0DE-CF89CBC4AE58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD1E2DD9-E935-4F77-A0DE-CF89CBC4AE58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD1E2DD9-E935-4F77-A0DE-CF89CBC4AE58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD1E2DD9-E935-4F77-A0DE-CF89CBC4AE58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

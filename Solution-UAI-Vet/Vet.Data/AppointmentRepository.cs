@@ -1,6 +1,7 @@
 ﻿using ClientPatientManagement.Core.Data;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Vet.Domain;
@@ -15,7 +16,7 @@ namespace WebApp.Data
         public void Delete(int id)
         {
             var db = new VetDbContext();
-            var appointment = db.Appointments.Find(id);
+            var appointment = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Room).Where(x => x.Id == id).Single();
             db.Appointments.Remove(appointment);
             db.SaveChanges();
         }
@@ -23,7 +24,7 @@ namespace WebApp.Data
         public AppointmentModel GetById(int id)
         {
             var db = new VetDbContext();
-            var appointment = db.Appointments.Find(id);
+            var appointment = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Room).Where(x => x.Id == id).Single();
             return appointment;
         }
 
@@ -37,23 +38,18 @@ namespace WebApp.Data
         public IEnumerable<AppointmentModel> List()
         {
             var db = new VetDbContext();
-            IList<AppointmentModel> appointments = db.Appointments.ToList();
+            IList<AppointmentModel> appointments = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Room).ToList();
             return appointments;
         }
 
         public void Update(AppointmentModel entity)
         {
             var db = new VetDbContext();
-            var appointment = db.Appointments.Find(entity.Id);
+            var appointment = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Room).Where(x => x.Id == entity.Id).Single();
 
             if (appointment != null)
             {
-                appointment.Date = entity.Date;
-                appointment.Hour = entity.Hour;
-                appointment.Doctor = entity.Doctor;
-                appointment.Patient = entity.Patient;
-                appointment.Room = entity.Room;
-
+                db.Entry(entity).State = EntityState.Modified;
                 db.SaveChanges();
             }
         }

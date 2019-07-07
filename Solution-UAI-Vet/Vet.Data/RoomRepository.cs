@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Vet.Domain;
@@ -48,15 +49,8 @@ namespace ClientPatientManagement.Core.Data
         public void Update(RoomModel entity)
         {
             var db = new VetDbContext();
-            var room = db.Rooms.Find(entity.Id);
-
-            if(room != null)
-            {
-                room.Name = entity.Name;
-                room.Location = entity.Location;
-
-                db.SaveChanges();
-            }
-        }
+            db.Entry(entity).State = EntityState.Modified;
+            db.SaveChanges();
+        }        
     }
 }

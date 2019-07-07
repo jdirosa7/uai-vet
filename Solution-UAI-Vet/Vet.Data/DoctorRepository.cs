@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Vet.Domain;
@@ -52,11 +53,7 @@ namespace ClientPatientManagement.Core.Data
 
             if (doctor != null)
             {
-                doctor.Name = entity.Name;
-                doctor.LastName = entity.LastName;
-                doctor.Phone = entity.Phone;
-                doctor.Email = entity.Email;
-
+                db.Entry(entity).State = EntityState.Modified;
                 db.SaveChanges();
             }
         }

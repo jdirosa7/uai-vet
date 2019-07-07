@@ -1,6 +1,7 @@
 ﻿using ClientPatientManagement.Core.Data;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Vet.Domain;
@@ -15,7 +16,7 @@ namespace WebApp.Data
         public void Delete(int id)
         {
             var db = new VetDbContext();
-            var patient = db.Patients.Find(id);
+            var patient = db.Patients.Include(a => a.Owner).Where(x => x.Id == id).Single();
             db.Patients.Remove(patient);
             db.SaveChanges();
         }
@@ -23,7 +24,7 @@ namespace WebApp.Data
         public PatientModel GetById(int id)
         {
             var db = new VetDbContext();
-            var patient = db.Patients.Find(id);
+            var patient = db.Patients.Include(a => a.Owner).Where(x => x.Id == id).Single();
             return patient;
         }
 
@@ -44,15 +45,11 @@ namespace WebApp.Data
         public void Update(PatientModel entity)
         {
             var db = new VetDbContext();
-            var patient = db.Patients.Find(entity.Id);
+            var patient = db.Patients.Include(a => a.Owner).Where(x => x.Id == entity.Id).Single();
 
             if (patient != null)
             {
-                patient.Name = entity.Name;
-                patient.Gender = entity.Gender;
-                //patient.Owner = entity.Owner;
-                patient.ClientId = entity.ClientId;
-
+                db.Entry(entity).State = EntityState.Modified;
                 db.SaveChanges();
             }
         }
