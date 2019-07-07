@@ -62,6 +62,14 @@ namespace ClientPatientManagement.Core.Model
             };
         }
 
+        public static IEnumerable<Appointment> ToModelList(IEnumerable<AppointmentModel> entities)
+        {
+            IList<Appointment> appointments = new List<Appointment>();
+            entities.ToList().ForEach(entity => appointments.Add(ToModel(entity)));
+
+            return appointments;
+        }
+
         public static AppointmentModel FromModel(Appointment model)
         {
             return new AppointmentModel

@@ -26,6 +26,14 @@ namespace ClientPatientManagement.Core.Model
             };
         }
 
+        public static IEnumerable<Client> ToModelList(IEnumerable<ClientModel> entities)
+        {
+            IList<Client> clients = new List<Client>();
+            entities.ToList().ForEach(entity => clients.Add(ToModel(entity)));
+
+            return clients;
+        }
+
         public static ClientModel FromModel(Client model)
         {
             return new ClientModel

@@ -25,6 +25,14 @@ namespace ClientPatientManagement.Core.Model
             };
         }
 
+        public static IEnumerable<Room> ToModelList(IEnumerable<RoomModel> entities)
+        {
+            IList<Room> rooms = new List<Room>();
+            entities.ToList().ForEach(entity => rooms.Add(ToModel(entity)));
+
+            return rooms;
+        }
+
         public static RoomModel FromModel(Room model)
         {
             return new RoomModel
