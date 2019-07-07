@@ -14,11 +14,11 @@ namespace ClientPatientManagement.Core.Data
         {
 
         }
-        public DbSet<RoomModel> Rooms { get; set; }
-        public DbSet<DoctorModel> Doctors { get; set; }
-        public DbSet<ClientModel> Clients { get; set; }
-        public DbSet<PatientModel> Patients { get; set; }
-        public DbSet<AppointmentModel> Appointments { get; set; }
+        public DbSet<Room> Rooms { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
