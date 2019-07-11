@@ -1,14 +1,14 @@
-﻿@model IEnumerable<ClientPatientManagement.Core.Model.Doctor>
+﻿@model IEnumerable<ClientPatientManagement.Core.Model.DoctorModel>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Doctores</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Agregar nuevo", "Create")
 </p>
 <table class="table">
     <tr>
@@ -24,7 +24,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
-        <th></th>
+        <th>
+            Acciones
+        </th>
     </tr>
 
 @foreach (var item in Model) {

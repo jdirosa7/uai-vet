@@ -23,14 +23,17 @@
             </div>
         </div>
         <div class="clear"></div>
-        <nav>
-            <div class="site-title">Veterinaria jdirosa</div>
+        <nav id="menu">
+            <div class="site-title">Veterinaria Puppis</div>
             <ul>
                 <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                <li>@Html.ActionLink("Consultorios", "Index", "Room")</li>
+                <li>@Html.ActionLink("Doctores", "Index", "Doctor")</li>
+                <li>@Html.ActionLink("Clientes", "Index", "Client")</li>
+                <li>@Html.ActionLink("Pacientes", "Index", "Patient")</li>
+                <li>@Html.ActionLink("Turnos", "Index", "Appointment")</li>
                 <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                 <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                <li>@Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                <li>@Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
             </ul>
         </nav>
     </header>
@@ -45,7 +48,7 @@
     </div>
 
     <footer>
-        <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+        <p>&copy; @DateTime.Now.Year - Puppis</p>
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
