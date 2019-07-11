@@ -45,13 +45,8 @@ namespace WebApp.Data
         public void Update(Client entity)
         {
             var db = new VetDbContext();
-            var client = db.Clients.Find(entity.Id);
-
-            if (client != null)
-            {
-                db.Entry(entity).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+            db.Entry(entity).State = EntityState.Modified;
+            db.SaveChanges();
         }
     }
 }

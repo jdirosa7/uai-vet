@@ -26,7 +26,7 @@ namespace ClientPatientManagement.Core.Model
             return new AppointmentModel
             {
                 Id = entity.Id,
-                Date = entity.Date,
+                Date = Convert.ToDateTime(entity.Date.ToShortDateString()),
                 Hour = entity.Hour,
                 Doctor = new DoctorModel
                 {
@@ -46,7 +46,7 @@ namespace ClientPatientManagement.Core.Model
                         Id = entity.Patient.Owner.Id,
                         Name = entity.Patient.Owner.Name,
                         LastName = entity.Patient.Owner.LastName,
-                        Email = entity.Patient.Owner.Email                        
+                        Email = entity.Patient.Owner.Email
                     },
                     ClientId = entity.Patient.Owner.Id,
                     Gender = entity.Patient.Gender == Gender.Female ? GenderModel.Female : GenderModel.Male
@@ -77,37 +77,37 @@ namespace ClientPatientManagement.Core.Model
                 Id = model.Id,
                 Date = model.Date,
                 Hour = model.Hour,
-                Doctor = new Vet.Domain.Doctor
-                {
-                    Id = model.Doctor.Id,
-                    Name = model.Doctor.Name,
-                    LastName = model.Doctor.LastName,
-                    Phone = model.Doctor.Phone,
-                    Email = model.Doctor.Email
-                },
-                DoctorId = model.Doctor.Id,
-                Patient = new Vet.Domain.Patient
-                {
-                    Id = model.Patient.Id,
-                    Name = model.Patient.Name,
-                    Owner = new Vet.Domain.Client
-                    {
-                        Id = model.Patient.Owner.Id,
-                        Name = model.Patient.Owner.Name,
-                        LastName = model.Patient.Owner.LastName,
-                        Email = model.Patient.Owner.Email
-                    },
-                    ClientId = model.Patient.Owner.Id,
-                    Gender = model.Patient.Gender == GenderModel.Female ? Gender.Female : Gender.Male
-                },
-                PatientId = model.Patient.Id,
-                Room = new Vet.Domain.Room
-                {
-                    Id = model.Room.Id,
-                    Name = model.Room.Name,
-                    Location = model.Room.Location
-                },
-                RoomId = model.Room.Id
+                //Doctor = new Vet.Domain.Doctor
+                //{
+                //    Id = model.Doctor.Id,
+                //    Name = model.Doctor.Name,
+                //    LastName = model.Doctor.LastName,
+                //    Phone = model.Doctor.Phone,
+                //    Email = model.Doctor.Email
+                //},
+                DoctorId = model.DoctorId,
+                //Patient = new Vet.Domain.Patient
+                //{
+                //    Id = model.Patient.Id,
+                //    Name = model.Patient.Name,
+                //    Owner = new Vet.Domain.Client
+                //    {
+                //        Id = model.Patient.Owner.Id,
+                //        Name = model.Patient.Owner.Name,
+                //        LastName = model.Patient.Owner.LastName,
+                //        Email = model.Patient.Owner.Email
+                //    },
+                //    ClientId = model.Patient.Owner.Id,
+                //    Gender = model.Patient.Gender == GenderModel.Female ? Gender.Female : Gender.Male
+                //},
+                PatientId = model.PatientId,
+                //Room = new Vet.Domain.Room
+                //{
+                //    Id = model.Room.Id,
+                //    Name = model.Room.Name,
+                //    Location = model.Room.Location
+                //},
+                RoomId = model.RoomId
             };
         }
     }

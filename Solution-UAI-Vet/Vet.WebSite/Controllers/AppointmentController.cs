@@ -109,7 +109,7 @@ namespace WebApp.Controllers
             {
                 return HttpNotFound();
             }
-            return View(appointment);
+            return View(AppointmentModel.ToModel(appointment));
         }
 
         // POST: Appointment/Delete/5

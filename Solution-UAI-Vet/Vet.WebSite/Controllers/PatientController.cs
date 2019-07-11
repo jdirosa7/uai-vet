@@ -15,6 +15,7 @@ namespace WebApp.Controllers
     public class PatientController : Controller
     {
         PatientBLL patientBusiness = new PatientBLL();
+        ClientBLL clientBusiness = new ClientBLL();
         // GET: Patient
         public ActionResult Index()
         {
@@ -31,13 +32,13 @@ namespace WebApp.Controllers
                 return HttpNotFound();
             }
 
-            return View(ClientPatientManagement.Core.Model.PatientModel.ToModel(patient));
+            return View(PatientModel.ToModel(patient));
         }
 
         // GET: Patient/Create
         public ActionResult Create()
         {
-            var clients = patientBusiness.List();
+            var clients = clientBusiness.List();
             ViewBag.ClientId = new SelectList(clients, "Id", "Name");
             return View();
         }
@@ -47,11 +48,11 @@ namespace WebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ClientId,Name,Gender")] ClientPatientManagement.Core.Model.PatientModel patient)
+        public ActionResult Create([Bind(Include = "Id,ClientId,Name,Gender")] PatientModel patient)
         {
             if (ModelState.IsValid)
             {
-                patientBusiness.Insert((Vet.Domain.Patient)ClientPatientManagement.Core.Model.PatientModel.FromModel(patient));
+                patientBusiness.Insert(PatientModel.FromModel(patient));
 
                 return RedirectToAction("Index");
             }
@@ -64,15 +65,17 @@ namespace WebApp.Controllers
         // GET: Patient/Edit/5
         public ActionResult Edit(int id)
         {
-            Vet.Domain.Patient patient = patientBusiness.GetById(id);
+            Patient patient = patientBusiness.GetById(id);
             if (patient == null)
             {
                 return HttpNotFound();
             }
 
-            var clients = patientBusiness.List();
-            ViewBag.ClientId = new SelectList(clients, "Id", "Name", patient.ClientId);
-            return View(patient);
+            //var patients = patientBusiness.List();
+            //ViewBag.ClientId = new SelectList(PatientModel.ToModelList(patients), "Id", "Name", PatientModel.ToModel(patient).ClientId);
+            var clients = clientBusiness.List();
+            ViewBag.ClientId = new SelectList(clients, "Id", "Name", PatientModel.ToModel(patient).ClientId);
+            return View(PatientModel.ToModel(patient));
         }
 
         // POST: Patient/Edit/5
@@ -80,17 +83,17 @@ namespace WebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ClientId,Name,Gender")] ClientPatientManagement.Core.Model.PatientModel patient)
+        public ActionResult Edit([Bind(Include = "Id,ClientId,Name,Gender")] PatientModel patient)
         {
             if (ModelState.IsValid)
             {
-                patientBusiness.Update((Vet.Domain.Patient)ClientPatientManagement.Core.Model.PatientModel.FromModel(patient));
+                patientBusiness.Update(PatientModel.FromModel(patient));
 
                 return RedirectToAction("Index");
             }
 
-            var clients = patientBusiness.List();
-            ViewBag.ClientId = new SelectList(clients, "Id", "Name", patient.ClientId);
+            var patients = patientBusiness.List();
+            ViewBag.ClientId = new SelectList(PatientModel.ToModelList(patients), "Id", "Name", patient.ClientId);
             return View(patient);
         }
 
@@ -103,7 +106,7 @@ namespace WebApp.Controllers
                 return HttpNotFound();
             }
 
-            return View(ClientPatientManagement.Core.Model.PatientModel.ToModel(patient));
+            return View(PatientModel.ToModel(patient));
         }
 
         // POST: Patient/Delete/5

@@ -45,18 +45,18 @@ namespace ClientPatientManagement.Core.Model
 
         public static Patient FromModel(PatientModel model)
         {
-            return new Vet.Domain.Patient
+            return new Patient
             {
                 Id = model.Id,
                 Name = model.Name,
-                Owner = new Vet.Domain.Client
-                {
-                    Id = model.Owner.Id,
-                    Name = model.Owner.Name,
-                    LastName = model.Owner.LastName,
-                    Email = model.Owner.Email
-                },
-                ClientId = model.Owner.Id,
+                //Owner = new Client
+                //{
+                //    Id = model.Owner.Id,
+                //    Name = model.Owner.Name,
+                //    LastName = model.Owner.LastName,
+                //    Email = model.Owner.Email
+                //},
+                ClientId = model.ClientId,
                 Gender = model.Gender == GenderModel.Female ? Vet.Domain.Gender.Female : Vet.Domain.Gender.Male
             };
         }

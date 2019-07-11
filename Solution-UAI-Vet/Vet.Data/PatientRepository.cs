@@ -38,20 +38,15 @@ namespace WebApp.Data
         public IEnumerable<Patient> List()
         {
             var db = new VetDbContext();
-            IList<Patient> patients = db.Patients.ToList();
+            IList<Patient> patients = db.Patients.Include(a => a.Owner).ToList();
             return patients;
         }
 
         public void Update(Patient entity)
         {
             var db = new VetDbContext();
-            var patient = db.Patients.Include(a => a.Owner).Where(x => x.Id == entity.Id).Single();
-
-            if (patient != null)
-            {
-                db.Entry(entity).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+            db.Entry(entity).State = EntityState.Modified;
+            db.SaveChanges();
         }
     }
 }

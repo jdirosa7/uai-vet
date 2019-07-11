@@ -49,13 +49,8 @@ namespace ClientPatientManagement.Core.Data
         public void Update(Doctor entity)
         {
             var db = new VetDbContext();
-            var doctor = db.Doctors.Find(entity.Id);
-
-            if (doctor != null)
-            {
-                db.Entry(entity).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+            db.Entry(entity).State = EntityState.Modified;
+            db.SaveChanges();
         }
     }
 }

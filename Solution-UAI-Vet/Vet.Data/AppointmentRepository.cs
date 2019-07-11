@@ -16,7 +16,7 @@ namespace WebApp.Data
         public void Delete(int id)
         {
             var db = new VetDbContext();
-            var appointment = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Room).Where(x => x.Id == id).Single();
+            var appointment = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Patient.Owner).Include(a => a.Room).Where(x => x.Id == id).Single();
             db.Appointments.Remove(appointment);
             db.SaveChanges();
         }
@@ -24,7 +24,7 @@ namespace WebApp.Data
         public Appointment GetById(int id)
         {
             var db = new VetDbContext();
-            var appointment = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Room).Where(x => x.Id == id).Single();
+            var appointment = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Patient.Owner).Include(a => a.Room).Where(x => x.Id == id).Single();
             return appointment;
         }
 
@@ -38,20 +38,15 @@ namespace WebApp.Data
         public IEnumerable<Appointment> List()
         {
             var db = new VetDbContext();
-            IList<Appointment> appointments = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Room).ToList();
+            IList<Appointment> appointments = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Patient.Owner).Include(a => a.Room).ToList();
             return appointments;
         }
 
         public void Update(Appointment entity)
         {
             var db = new VetDbContext();
-            var appointment = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Room).Where(x => x.Id == entity.Id).Single();
-
-            if (appointment != null)
-            {
-                db.Entry(entity).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+            db.Entry(entity).State = EntityState.Modified;
+            db.SaveChanges();
         }
     }
 }
