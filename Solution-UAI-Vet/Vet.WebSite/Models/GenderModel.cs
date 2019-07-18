@@ -7,7 +7,7 @@ namespace ClientPatientManagement.Core.Model
 {
     public enum GenderModel
     {
-        Female = 1,
-        Male = 2
+        Female = 0,
+        Male = 1
     }
 }
