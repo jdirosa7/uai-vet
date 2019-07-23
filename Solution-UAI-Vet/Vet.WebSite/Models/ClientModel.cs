@@ -13,6 +13,9 @@ namespace ClientPatientManagement.Core.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
+        public int DNI { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
         public string Email { get; set; }
 
         public static ClientModel ToModel(Client entity)
@@ -22,6 +25,9 @@ namespace ClientPatientManagement.Core.Model
                 Id = entity.Id,
                 Name = entity.Name,
                 LastName = entity.LastName,
+                DNI = entity.DNI,
+                Address = entity.Address,
+                Phone = entity.Phone,                
                 Email = entity.Email
             };
         }
@@ -41,6 +47,9 @@ namespace ClientPatientManagement.Core.Model
                 Id = model.Id,
                 Name = model.Name,
                 LastName = model.LastName,
+                DNI = model.DNI,
+                Address = model.Address,
+                Phone = model.Phone,
                 Email = model.Email
             };
         }

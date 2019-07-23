@@ -16,6 +16,7 @@ namespace ClientPatientManagement.Core.Model
         public int ClientId { get; set; }
         public string Name { get; set; }
         public GenderModel Gender { get; set; }
+        public int Age { get; set; }
 
         public static PatientModel ToModel(Vet.Domain.Patient entity)
         {
@@ -31,7 +32,8 @@ namespace ClientPatientManagement.Core.Model
                     Email = entity.Owner.Email
                 },
                 ClientId = entity.Owner.Id,
-                Gender = entity.Gender == Vet.Domain.Gender.Female ? GenderModel.Female : GenderModel.Male
+                Gender = entity.Gender == Vet.Domain.Gender.Female ? GenderModel.Female : GenderModel.Male,
+                Age = entity.Age
             };
         }
 
@@ -57,7 +59,8 @@ namespace ClientPatientManagement.Core.Model
                 //    Email = model.Owner.Email
                 //},
                 ClientId = model.ClientId,
-                Gender = model.Gender == GenderModel.Female ? Vet.Domain.Gender.Female : Vet.Domain.Gender.Male
+                Gender = model.Gender == GenderModel.Female ? Vet.Domain.Gender.Female : Vet.Domain.Gender.Male,
+                Age = model.Age
             };
         }
     }

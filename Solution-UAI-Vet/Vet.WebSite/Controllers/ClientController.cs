@@ -25,13 +25,13 @@ namespace WebApp.Models
         // GET: Client/Details/5
         public ActionResult Details(int id)
         {
-            Vet.Domain.Client client = clientBusiness.GetById(id);
+            Client client = clientBusiness.GetById(id);
             if (client == null)
             {
                 return HttpNotFound();
             }
 
-            return View(ClientPatientManagement.Core.Model.ClientModel.ToModel(client));
+            return View(ClientModel.ToModel(client));
         }
 
         // GET: Client/Create
@@ -45,7 +45,7 @@ namespace WebApp.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,LastName,Email")] ClientModel client)
+        public ActionResult Create([Bind(Include = "Id,Name,LastName,DNI,Address,Phone,Email")] ClientModel client)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace WebApp.Models
             {
                 return HttpNotFound();
             }
-            return View(ClientPatientManagement.Core.Model.ClientModel.ToModel(client));
+            return View(ClientModel.ToModel(client));
         }
 
         // POST: Client/Edit/5
@@ -73,11 +73,11 @@ namespace WebApp.Models
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,LastName,Email")] ClientPatientManagement.Core.Model.ClientModel client)
+        public ActionResult Edit([Bind(Include = "Id,Name,LastName,DNI,Address,Phone,Email")] ClientModel client)
         {
             if (ModelState.IsValid)
             {
-                clientBusiness.Update((Vet.Domain.Client)ClientPatientManagement.Core.Model.ClientModel.FromModel(client));
+                clientBusiness.Update(ClientModel.FromModel(client));
 
                 return RedirectToAction("Index");
             }
@@ -92,7 +92,7 @@ namespace WebApp.Models
             {
                 return HttpNotFound();
             }
-            return View(ClientPatientManagement.Core.Model.ClientModel.ToModel(client));
+            return View(ClientModel.ToModel(client));
         }
 
         // POST: Client/Delete/5

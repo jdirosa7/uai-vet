@@ -31,7 +31,7 @@ namespace WebApp.Controllers
                 return HttpNotFound();
             }
 
-            return View(ClientPatientManagement.Core.Model.DoctorModel.ToModel(doctor));
+            return View(DoctorModel.ToModel(doctor));
         }
 
         // GET: Doctor/Create
@@ -45,11 +45,11 @@ namespace WebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,LastName,Phone,Email")] ClientPatientManagement.Core.Model.DoctorModel doctor)
+        public ActionResult Create([Bind(Include = "Id,Name,LastName,Enrollment,Phone,Email")] DoctorModel doctor)
         {
             if (ModelState.IsValid)
             {
-                doctorBusiness.Insert((Vet.Domain.Doctor)ClientPatientManagement.Core.Model.DoctorModel.FromModel(doctor));
+                doctorBusiness.Insert(DoctorModel.FromModel(doctor));
 
                 return RedirectToAction("Index");
             }
@@ -66,7 +66,7 @@ namespace WebApp.Controllers
                 return HttpNotFound();
             }
 
-            return View(ClientPatientManagement.Core.Model.DoctorModel.ToModel(doctor));
+            return View(DoctorModel.ToModel(doctor));
         }
 
         // POST: Doctor/Edit/5
@@ -74,11 +74,11 @@ namespace WebApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,LastName,Phone,Email")] ClientPatientManagement.Core.Model.DoctorModel doctor)
+        public ActionResult Edit([Bind(Include = "Id,Name,LastName,Enrollment,Phone,Email")] DoctorModel doctor)
         {
             if (ModelState.IsValid)
             {
-                doctorBusiness.Update((Vet.Domain.Doctor)ClientPatientManagement.Core.Model.DoctorModel.FromModel(doctor));
+                doctorBusiness.Update(DoctorModel.FromModel(doctor));
 
                 return RedirectToAction("Index");
             }
@@ -94,7 +94,7 @@ namespace WebApp.Controllers
                 return HttpNotFound();
             }
 
-            return View(ClientPatientManagement.Core.Model.DoctorModel.ToModel(doctor));
+            return View(DoctorModel.ToModel(doctor));
         }
 
         // POST: Doctor/Delete/5

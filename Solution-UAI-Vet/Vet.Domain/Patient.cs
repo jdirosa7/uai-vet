@@ -15,6 +15,7 @@ namespace Vet.Domain
         public Client Owner { get; set; }
         public int ClientId { get; set; }
         public Gender Gender { get; set; }
+        public int Age { get; set; }
     }
 
     [MetadataType(typeof(PatientMetadata))]
@@ -32,6 +33,9 @@ namespace Vet.Domain
 
             [Required]
             public Gender Gender { get; set; }
+
+            [Required]
+            public int Age { get; set; }
         }        
     }
 }

@@ -13,6 +13,8 @@ namespace Vet.Domain
         public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
+        public int DNI { get; set; }
+        public string Enrollment { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
     }
@@ -33,6 +35,13 @@ namespace Vet.Domain
             [StringLength(50)]
             [Required]
             public string LastName { get; set; }
+
+            [Required]
+            public string DNI { get; set; }
+
+            [StringLength(50)]
+            [Required]
+            public string Enrollment { get; set; }
 
             [StringLength(50)]
             [Required]
