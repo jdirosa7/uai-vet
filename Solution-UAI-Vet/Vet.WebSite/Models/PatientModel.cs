@@ -17,6 +17,7 @@ namespace ClientPatientManagement.Core.Model
         public string Name { get; set; }
         public GenderModel Gender { get; set; }
         public int Age { get; set; }
+        public HttpPostedFileBase Image { get; set; }
 
         public static PatientModel ToModel(Vet.Domain.Patient entity)
         {

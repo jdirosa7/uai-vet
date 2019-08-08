@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
 <div class="form-horizontal">
     <h4>Patient</h4>
     <hr />
@@ -50,6 +50,19 @@
     </div>
 
     <div class="form-group">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+            <img id="patient_img" height="100" width="90" style="border:solid" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.ValidationMessage("Model", "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Save" class="btn btn-default" />
         </div>
@@ -60,3 +73,17 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+
+@section scripts{
+
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var URL = window.location.href;
+            var id = URL.match(/(\d+)$/g)[0];
+            var href = "../../Content/Images/" + id + ".jpg";
+            $('#patient_img').attr("src", href);
+        });
+    </script>
+}
