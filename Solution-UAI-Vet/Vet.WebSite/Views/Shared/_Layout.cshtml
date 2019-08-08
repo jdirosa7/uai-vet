@@ -32,6 +32,7 @@
                 <li>@Html.ActionLink("Clientes", "Index", "Client")</li>
                 <li>@Html.ActionLink("Pacientes", "Index", "Patient")</li>
                 <li>@Html.ActionLink("Turnos", "Index", "Appointment")</li>
+                <li>@Html.ActionLink("Calendario", "Calendar", "Appointment")</li>
                 <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                 <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
             </ul>
@@ -41,6 +42,12 @@
     <section class="content">
         @RenderBody()
     </section>
+
+    <aside>
+        <p><img src="~/Images/publicidad1.png" style="width:295px; height:240px" /></p>
+        <p></p>
+        <p><img src="~/Images/publicidad2.png" style="width:295px; height:240px" /></p>
+    </aside>
 
     <div class="up-to-top footerView visible-title" style="position: fixed; bottom: 0px; display: block;">
         <span class="icon top"></span>
