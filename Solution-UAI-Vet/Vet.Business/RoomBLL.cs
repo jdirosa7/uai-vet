@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Vet.Domain;
 using Vet.Services;
+using System.Linq;
 
 namespace Vet.Business
 {
@@ -15,14 +16,28 @@ namespace Vet.Business
             RoomRepository.Instancia.Delete(id);
         }
 
+        public IEnumerable<Room> GetByFilters(Room entity)
+        {
+            return RoomRepository.Instancia.GetByFilters(entity);
+        }
+
         public Room GetById(int id)
         {
             return RoomRepository.Instancia.GetById(id);
         }
 
-        public void Insert(Room entity)
+        public Room Insert(Room entity)
         {
-            RoomRepository.Instancia.Insert(entity);
+            var rooms = this.GetByFilters(entity);
+            if (rooms.Count() == 0)
+            {
+                RoomRepository.Instancia.Insert(entity);
+                return entity;
+            }
+            else
+            {
+                return null;
+            }            
         }
 
         public IEnumerable<Room> List()

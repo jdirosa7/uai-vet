@@ -16,9 +16,47 @@ namespace WebApp.Data
         public void Delete(int id)
         {
             var db = new VetDbContext();
-            var appointment = db.Appointments.Include(a => a.Doctor).Include(a => a.Patient).Include(a => a.Patient.Owner).Include(a => a.Room).Where(x => x.Id == id).Single();
+            var appointment = db.Appointments.Include(a => a.Doctor).
+                Include(a => a.Patient).
+                Include(a => a.Patient.Owner).
+                Include(a => a.Room).
+                Where(x => x.Id == id).Single();
             db.Appointments.Remove(appointment);
             db.SaveChanges();
+        }
+
+        public IEnumerable<Appointment> GetByFilters(Appointment entity)
+        {
+            List<Appointment> appointments = new List<Appointment>();
+
+            appointments.AddRange(GetDoctorAppointmentsByDate(entity));
+            appointments.AddRange(GetPatientAppointmentsByDate(entity));
+
+            return appointments;
+        }
+
+        private IEnumerable<Appointment> GetDoctorAppointmentsByDate(Appointment entity)
+        {
+            var db = new VetDbContext();
+            var appointments = db.Appointments
+                .Include(a => a.Doctor)
+                .Include(a => a.Patient)
+                .Include(a => a.Patient.Owner)
+                .Include(a => a.Room)
+                .Where(x => x.DoctorId == entity.DoctorId && x.Date == entity.Date && x.Hour == entity.Hour).ToList();
+            return appointments;
+        }
+
+        private IEnumerable<Appointment> GetPatientAppointmentsByDate(Appointment entity)
+        {
+            var db = new VetDbContext();
+            var appointments = db.Appointments
+                .Include(a => a.Doctor)
+                .Include(a => a.Patient)
+                .Include(a => a.Patient.Owner)
+                .Include(a => a.Room)
+                .Where(x => x.PatientId == entity.PatientId && x.Date == entity.Date && x.Hour == entity.Hour).ToList();
+            return appointments;
         }
 
         public Appointment GetById(int id)
@@ -28,11 +66,12 @@ namespace WebApp.Data
             return appointment;
         }
 
-        public void Insert(Appointment entity)
+        public Appointment Insert(Appointment entity)
         {
             var db = new VetDbContext();
             db.Appointments.Add(entity);
             db.SaveChanges();
+            return entity;
         }
 
         public IEnumerable<Appointment> List()

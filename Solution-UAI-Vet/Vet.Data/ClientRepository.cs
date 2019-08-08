@@ -21,6 +21,13 @@ namespace WebApp.Data
             db.SaveChanges();
         }
 
+        public IEnumerable<Client> GetByFilters(Client entity)
+        {
+            var db = new VetDbContext();
+            var clients = db.Clients.Where(x => x.DNI == entity.DNI).ToList();
+            return clients;
+        }
+
         public Client GetById(int id)
         {
             var db = new VetDbContext();
@@ -28,11 +35,12 @@ namespace WebApp.Data
             return client;
         }
 
-        public void Insert(Client entity)
+        public Client Insert(Client entity)
         {
             var db = new VetDbContext();
             db.Clients.Add(entity);
             db.SaveChanges();
+            return entity;
         }
 
         public IEnumerable<Client> List()

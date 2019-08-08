@@ -4,6 +4,7 @@ using System.Text;
 using Vet.Domain;
 using Vet.Services;
 using WebApp.Data;
+using System.Linq;
 
 namespace Vet.Business
 {
@@ -14,14 +15,28 @@ namespace Vet.Business
             ClientRepository.Instancia.Delete(id);
         }
 
+        public IEnumerable<Client> GetByFilters(Client entity)
+        {
+            return ClientRepository.Instancia.GetByFilters(entity);
+        }
+
         public Client GetById(int id)
         {
             return ClientRepository.Instancia.GetById(id);
         }
 
-        public void Insert(Client entity)
+        public Client Insert(Client entity)
         {
-            ClientRepository.Instancia.Insert(entity);
+            var clients = this.GetByFilters(entity);
+            if (clients.Count() == 0)
+            {
+                ClientRepository.Instancia.Insert(entity);
+                return entity;
+            }
+            else
+            {                
+                return null;
+            }
         }
 
         public IEnumerable<Client> List()

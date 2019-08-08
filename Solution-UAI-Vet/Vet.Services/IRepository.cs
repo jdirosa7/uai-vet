@@ -9,8 +9,9 @@ namespace Vet.Services
     public interface IRepository<TEntity> where TEntity : IEntity
     {
         IEnumerable<TEntity> List();
+        IEnumerable<TEntity> GetByFilters(TEntity entity);
         TEntity GetById(int id);
-        void Insert(TEntity entity);
+        TEntity Insert(TEntity entity);
         void Update(TEntity entity);
         void Delete(int id);
     }

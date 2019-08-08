@@ -12,17 +12,19 @@ namespace ClientPatientManagement.Core.Data
     {
         public static DoctorRepository Instancia = new DoctorRepository();
 
-        private DoctorRepository()
-        {
-            //Instancia = new RepositoryRoom();
-        }
-
         public void Delete(int id)
         {
             var db = new VetDbContext();
             var doctor = db.Doctors.Find(id);
             db.Doctors.Remove(doctor);
             db.SaveChanges();
+        }
+
+        public IEnumerable<Doctor> GetByFilters(Doctor entity)
+        {
+            var db = new VetDbContext();
+            var doctors = db.Doctors.Where(x => x.DNI == entity.DNI && x.Enrollment == entity.Enrollment).ToList();
+            return doctors;
         }
 
         public Doctor GetById(int id)
@@ -32,11 +34,12 @@ namespace ClientPatientManagement.Core.Data
             return doctor;
         }
 
-        public void Insert(Doctor entity)
+        public Doctor Insert(Doctor entity)
         {
             var db = new VetDbContext();
             db.Doctors.Add(entity);
             db.SaveChanges();
+            return entity;
         }
 
         public IEnumerable<Doctor> List()

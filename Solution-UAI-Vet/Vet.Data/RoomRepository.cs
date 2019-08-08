@@ -25,6 +25,13 @@ namespace ClientPatientManagement.Core.Data
             db.SaveChanges();
         }
 
+        public IEnumerable<Room> GetByFilters(Room entity)
+        {
+            var db = new VetDbContext();
+            var rooms = db.Rooms.Where(x => x.Location == entity.Location && x.Name == entity.Name).ToList();
+            return rooms;
+        }
+
         public Room GetById(int id)
         {
             var db = new VetDbContext();
@@ -32,11 +39,12 @@ namespace ClientPatientManagement.Core.Data
             return room;
         }
 
-        public void Insert(Room entity)
+        public Room Insert(Room entity)
         {
             var db = new VetDbContext();
             db.Rooms.Add(entity);
             db.SaveChanges();
+            return entity;
         }
 
         public IEnumerable<Room> List()

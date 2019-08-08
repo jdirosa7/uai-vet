@@ -21,6 +21,14 @@ namespace WebApp.Data
             db.SaveChanges();
         }
 
+        public IEnumerable<Patient> GetByFilters(Patient entity)
+        {
+            var db = new VetDbContext();
+            var patients = db.Patients.Include(a => a.Owner).
+                Where(x => x.ClientId == entity.ClientId && x.Name == entity.Name).ToList();
+            return patients;
+        }
+
         public Patient GetById(int id)
         {
             var db = new VetDbContext();
@@ -28,11 +36,12 @@ namespace WebApp.Data
             return patient;
         }
 
-        public void Insert(Patient entity)
+        public Patient Insert(Patient entity)
         {
             var db = new VetDbContext();
             db.Patients.Add(entity);
             db.SaveChanges();
+            return entity;
         }
 
         public IEnumerable<Patient> List()

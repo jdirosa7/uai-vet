@@ -33,6 +33,8 @@ namespace Vet.Data.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 50),
                         LastName = c.String(nullable: false, maxLength: 50),
+                        DNI = c.Int(nullable: false),
+                        Enrollment = c.String(nullable: false, maxLength: 50),
                         Phone = c.String(nullable: false, maxLength: 50),
                         Email = c.String(nullable: false, maxLength: 50),
                     })
@@ -46,6 +48,7 @@ namespace Vet.Data.Migrations
                         Name = c.String(nullable: false, maxLength: 50),
                         ClientId = c.Int(nullable: false),
                         Gender = c.Int(nullable: false),
+                        Age = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Client", t => t.ClientId, cascadeDelete: true)
@@ -58,6 +61,9 @@ namespace Vet.Data.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 50),
                         LastName = c.String(nullable: false, maxLength: 50),
+                        DNI = c.Int(nullable: false),
+                        Address = c.String(nullable: false, maxLength: 100),
+                        Phone = c.String(nullable: false, maxLength: 50),
                         Email = c.String(nullable: false, maxLength: 50),
                     })
                 .PrimaryKey(t => t.Id);
