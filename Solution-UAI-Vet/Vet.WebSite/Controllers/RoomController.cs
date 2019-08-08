@@ -29,6 +29,7 @@ namespace WebApp.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex.Message, ex);
+                ModelState.AddModelError("Model", "Ha ocurrido un error. Por favor, contacte al administrador");
                 return View();
             }            
         }
@@ -49,6 +50,7 @@ namespace WebApp.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex.Message, ex);
+                ModelState.AddModelError("Model", "Ha ocurrido un error. Por favor, contacte al administrador");
                 return View("Details");
             }
         }
