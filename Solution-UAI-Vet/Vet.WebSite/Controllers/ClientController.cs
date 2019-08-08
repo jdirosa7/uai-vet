@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using ClientPatientManagement.Core.Model;
 using Vet.Business;
 using Vet.Domain;
+using Vet.WebSite.Utils;
 
 namespace WebApp.Models
 {
@@ -18,20 +19,36 @@ namespace WebApp.Models
         // GET: Client
         public ActionResult Index()
         {
-            var clients = clientBusiness.List();
-            return View(ClientModel.ToModelList(clients));
+            try
+            {
+                var clients = clientBusiness.List();
+                return View(ClientModel.ToModelList(clients));
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message, ex);
+                return View();
+            }
         }
 
         // GET: Client/Details/5
         public ActionResult Details(int id)
         {
-            Client client = clientBusiness.GetById(id);
-            if (client == null)
+            try
             {
-                return HttpNotFound();
-            }
+                Client client = clientBusiness.GetById(id);
+                if (client == null)
+                {
+                    return HttpNotFound();
+                }
 
-            return View(ClientModel.ToModel(client));
+                return View(ClientModel.ToModel(client));
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message, ex);
+                return View();
+            }
         }
 
         // GET: Client/Create
@@ -47,25 +64,81 @@ namespace WebApp.Models
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,LastName,DNI,Address,Phone,Email")] ClientModel client)
         {
-            if (ModelState.IsValid)
+            try
             {
-                clientBusiness.Insert(ClientModel.FromModel(client));
+                if (client.Name == null || client.Name == string.Empty)
+                {
+                    ModelState.AddModelError("Name", "Debe ingresar un nombre");
+                }
 
-                return RedirectToAction("Index");
+                if (client.LastName == null || client.LastName == string.Empty)
+                {
+                    ModelState.AddModelError("LastName", "Debe ingresar un apellido");
+                }
+
+                if (client.DNI == 0)
+                {
+                    ModelState.AddModelError("DNI", "Debe ingresar un DNI");
+                }
+
+                if (client.Address == null || client.Address == string.Empty)
+                {
+                    ModelState.AddModelError("Address", "Debe ingresar una dirección");
+                }
+
+                if (client.Phone == null || client.Phone == string.Empty)
+                {
+                    ModelState.AddModelError("Phone", "Debe ingresar un teléfono");
+                }
+
+                if (client.Email == null || client.Email == string.Empty)
+                {
+                    ModelState.AddModelError("Email", "Debe ingresar un email");
+                }
+
+
+                IEnumerable<Client> rooms = clientBusiness.GetByFilters(ClientModel.FromModel(client));
+
+                if (rooms.ToList().Count > 0)
+                {
+                    ModelState.AddModelError("Model", "Ya existe un cliente con DNI: " +
+                        client.DNI);
+                }
+
+
+                if (ModelState.IsValid)
+                {
+                    clientBusiness.Insert(ClientModel.FromModel(client));
+
+                    return RedirectToAction("Index");
+                }
+
+                return View(client);
             }
-
-            return View(client);
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message, ex);
+                return View();
+            }
         }
 
         // GET: Client/Edit/5
         public ActionResult Edit(int id)
         {
-            Vet.Domain.Client client = clientBusiness.GetById(id);
-            if (client == null)
+            try
             {
-                return HttpNotFound();
+                Client client = clientBusiness.GetById(id);
+                if (client == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(ClientModel.ToModel(client));
             }
-            return View(ClientModel.ToModel(client));
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message, ex);
+                return View();
+            }
         }
 
         // POST: Client/Edit/5
@@ -75,24 +148,79 @@ namespace WebApp.Models
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,LastName,DNI,Address,Phone,Email")] ClientModel client)
         {
-            if (ModelState.IsValid)
+            try
             {
-                clientBusiness.Update(ClientModel.FromModel(client));
+                if (client.Name == null || client.Name == string.Empty)
+                {
+                    ModelState.AddModelError("Name", "Debe ingresar un nombre");
+                }
 
-                return RedirectToAction("Index");
+                if (client.LastName == null || client.LastName == string.Empty)
+                {
+                    ModelState.AddModelError("LastName", "Debe ingresar un apellido");
+                }
+
+                if (client.DNI == 0)
+                {
+                    ModelState.AddModelError("DNI", "Debe ingresar un DNI");
+                }
+
+                if (client.Address == null || client.Address == string.Empty)
+                {
+                    ModelState.AddModelError("Address", "Debe ingresar una dirección");
+                }
+
+                if (client.Phone == null || client.Phone == string.Empty)
+                {
+                    ModelState.AddModelError("Phone", "Debe ingresar un teléfono");
+                }
+
+                if (client.Email == null || client.Email == string.Empty)
+                {
+                    ModelState.AddModelError("Email", "Debe ingresar un email");
+                }
+
+
+                IEnumerable<Client> rooms = clientBusiness.GetByFilters(ClientModel.FromModel(client));
+
+                if (rooms.ToList().Count > 0)
+                {
+                    ModelState.AddModelError("Model", "Ya existe un cliente con DNI: " +
+                        client.DNI);
+                }
+
+                if (ModelState.IsValid)
+                {
+                    clientBusiness.Update(ClientModel.FromModel(client));
+
+                    return RedirectToAction("Index");
+                }
+                return View(client);
             }
-            return View(client);
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message, ex);
+                return View();
+            }
         }
 
         // GET: Client/Delete/5
         public ActionResult Delete(int id)
         {
-            Vet.Domain.Client client = clientBusiness.GetById(id);
-            if (client == null)
+            try
             {
-                return HttpNotFound();
+                Client client = clientBusiness.GetById(id);
+                if (client == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(ClientModel.ToModel(client));
             }
-            return View(ClientModel.ToModel(client));
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message, ex);
+                return View();
+            }
         }
 
         // POST: Client/Delete/5
@@ -100,9 +228,17 @@ namespace WebApp.Models
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            clientBusiness.Delete(id);
+            try
+            {
+                clientBusiness.Delete(id);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message, ex);
+                return View();
+            }
         }
     }
 }
