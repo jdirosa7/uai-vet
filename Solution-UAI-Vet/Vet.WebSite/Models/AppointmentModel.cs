@@ -62,6 +62,18 @@ namespace ClientPatientManagement.Core.Model
             };
         }
 
+        public static CalendarModel ToCalendarModel(Appointment appointment)
+        {
+            return new CalendarModel
+            {
+                Id = appointment.Id,
+                title = "Turno",
+                description = "Paciente: " + appointment.Patient.Name + " con Doctor: " + appointment.Doctor.LastName,
+                start = appointment.Date.AddHours(appointment.Hour).ToString("yyyy-MM-ddThh:mm:ss"),
+                end = appointment.Date.AddHours(appointment.Hour + 1).ToString("yyyy-MM-ddThh:mm:ss"),
+            };
+        }
+
         public static IEnumerable<AppointmentModel> ToModelList(IEnumerable<Appointment> entities)
         {
             IList<AppointmentModel> appointments = new List<AppointmentModel>();

@@ -15,7 +15,7 @@ namespace ClientPatientManagement.Core.Model
         public string Location { get; set; }
 
 
-        public static RoomModel ToModel(Vet.Domain.Room entity)
+        public static RoomModel ToModel(Room entity)
         {
             return new RoomModel
             {

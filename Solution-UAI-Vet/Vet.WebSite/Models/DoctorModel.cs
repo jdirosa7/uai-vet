@@ -32,7 +32,7 @@ namespace ClientPatientManagement.Core.Model
             };
         }
 
-        public static IEnumerable<DoctorModel> ToModelList(IEnumerable<Vet.Domain.Doctor> entities)
+        public static IEnumerable<DoctorModel> ToModelList(IEnumerable<Doctor> entities)
         {
             IList<DoctorModel> doctors = new List<DoctorModel>();
             entities.ToList().ForEach(entity => doctors.Add(ToModel(entity)));
@@ -42,7 +42,7 @@ namespace ClientPatientManagement.Core.Model
 
         public static Doctor FromModel(DoctorModel model)
         {
-            return new Vet.Domain.Doctor
+            return new Doctor
             {
                 Id = model.Id,
                 Name = model.Name,

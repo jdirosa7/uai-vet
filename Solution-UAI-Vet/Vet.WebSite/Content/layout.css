@@ -6,6 +6,7 @@
     color: #000;
     font-weight:bold;
     text-align:center;
+    clear:both;
 }
 
 footer > p{
@@ -105,8 +106,9 @@ body {
 .content {
     margin: 0 auto;
     padding: 4rem 0;
-    width: 960px;
-    max-width: 100%;
+    /*width: 960px;*/
+    width: 75%;
+    float:left;
 }
 
 article {
@@ -120,7 +122,8 @@ article {
 
 aside {
     float: right;
-    width: 120px;
+    width: 25%;
+    padding: 20px;
 }
 
 p img {
